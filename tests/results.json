@@ -1,0 +1,25 @@
+{
+  "passed": 19,
+  "checks": [
+    "Inicialização sem erros JavaScript",
+    "Seleção explícita de cliente aparece no formulário",
+    "Gravação IndexedDB e identidade permanente",
+    "Homônimos com contatos diferentes permanecem separados",
+    "Renomear cliente mantém vínculo",
+    "Massa magra e músculo não são intercambiáveis",
+    "Falha de escrita não altera memória nem confirma sucesso",
+    "Cobranças incluídas no backup completo e excluídas do individual",
+    "Backup inspecionado e adulteração financeira recusada",
+    "Cofre protege cobranças com criptografia",
+    "Troca de senha preserva avaliações e cobranças",
+    "Remover senha preserva histórico financeiro",
+    "Importação e desfazer restauram também cobranças",
+    "Histórico tem apenas uma ação de PDF por cartão",
+    "Reabrir banco mantém IDs e avaliações",
+    "Sem IndexedDB: salvar e restaurar dados do LocalStorage",
+    "Cofre e troca de senha funcionam sem IndexedDB",
+    "Cota esgotada no fallback rejeita gravação",
+    "Modo temporário exibe alerta e exportação"
+  ],
+  "environment": "Node + JSDOM + fake-indexeddb; não substitui navegador real"
+}

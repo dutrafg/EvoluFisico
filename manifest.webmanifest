@@ -1,8 +1,8 @@
 {
-  "name": "EvoluFísico v8.9 Estável — Clinical Suite",
+  "name": "EvoluFísico 8.9.2 — Teste",
   "short_name": "EvoluFísico",
   "description": "Avaliação Física & Bioimpedância, Composição Corporal, Antropometria e Gestão Clínica.",
-  "start_url": "./index.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
@@ -28,5 +28,6 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "id": "./"
 }

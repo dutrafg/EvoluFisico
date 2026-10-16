@@ -1,0 +1,19 @@
+{
+  "browser": "153.0.8010.0",
+  "passed": [
+    "Página inicial e navegação principal",
+    "Navegar preserva o rascunho",
+    "Formulário e cabeçalho em 320px",
+    "Formulário e cabeçalho em 390px",
+    "Formulário e cabeçalho em 768px",
+    "Formulário e cabeçalho em 1440px",
+    "Dados profissionais acessíveis",
+    "Quatro áreas principais acessíveis",
+    "Calculadoras e diagnóstico acessíveis",
+    "Alternância de tema",
+    "Menu fecha com Escape",
+    "Reabertura offline da SPA",
+    "Sem erros JavaScript no navegador"
+  ],
+  "errors": []
+}

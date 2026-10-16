@@ -1,0 +1,23 @@
+{
+  "results": [
+    "index.html: individual/dupla em 320px, interface simples true",
+    "index.html: individual/dupla em 390px, interface simples true",
+    "index.html: individual/dupla em 768px, interface simples true",
+    "index.html: individual/dupla em 1440px, interface simples true",
+    "index.html: individual/dupla em 320px, interface simples false",
+    "index.html: individual/dupla em 390px, interface simples false",
+    "index.html: individual/dupla em 768px, interface simples false",
+    "index.html: individual/dupla em 1440px, interface simples false",
+    "index.html: contorno no menu claro",
+    "evolufisico.html: individual/dupla em 320px, interface simples true",
+    "evolufisico.html: individual/dupla em 390px, interface simples true",
+    "evolufisico.html: individual/dupla em 768px, interface simples true",
+    "evolufisico.html: individual/dupla em 1440px, interface simples true",
+    "evolufisico.html: individual/dupla em 320px, interface simples false",
+    "evolufisico.html: individual/dupla em 390px, interface simples false",
+    "evolufisico.html: individual/dupla em 768px, interface simples false",
+    "evolufisico.html: individual/dupla em 1440px, interface simples false",
+    "evolufisico.html: contorno no menu claro"
+  ],
+  "errors": []
+}

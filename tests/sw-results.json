@@ -1,0 +1,4 @@
+{
+  "passed": 8,
+  "environment": "Service Worker em VM com CacheStorage simulado"
+}
