@@ -260,3 +260,24 @@ body.ef-simple-ui #tab-btn-form[hidden]{display:none!important;}
  body.ef-simple-ui #ef-tools-content .ef-sidebar-section>.ef-tools-group{flex-direction:column!important;align-items:stretch!important;overflow:visible!important;}
  body.ef-simple-ui #ef-tools-content .ef-sidebar-section button{white-space:normal!important;width:100%!important;border:0!important;}
 }
+
+/* Payment summary follows the selected theme, including credit/cash details. */
+@media screen{
+ body.ef-simple-ui .cob-hero-card{--cob-success:#15803d;--cob-danger:#b91c1c;background:var(--ef-surface)!important;color:var(--ef-ink)!important;border:1px solid var(--ef-line)!important;border-radius:10px;box-shadow:none!important;}
+ html.ef-dark-mode body.ef-simple-ui .cob-hero-card,body.ef-simple-ui.dark-mode .cob-hero-card{--cob-success:#4ade80;--cob-danger:#f87171;}
+ body.ef-simple-ui .cob-hero-rows{border-color:var(--ef-line);}
+ body.ef-simple-ui :is(.cob-hero-row,.cob-hero-total-label,.cob-hero-per-student-info small,.cob-hero-card>label,#cob-parcela-resumo){color:var(--ef-muted)!important;}
+ body.ef-simple-ui :is(.cob-hero-row b,.cob-hero-per-student-info span,.cob-pay-subdetail>div){color:var(--ef-ink)!important;}
+ body.ef-simple-ui .cob-hero-row.discount b{color:var(--cob-danger)!important;}
+ body.ef-simple-ui .cob-hero-total-val{color:var(--ef-accent);}
+ body.ef-simple-ui :is(.cob-hero-per-student-val,#cob-troco-display){color:var(--cob-success)!important;}
+ body.ef-simple-ui :is(.cob-hero-per-student-box,.cob-pay-segmented,.cob-status-segmented,.cob-pay-subdetail){background:var(--ef-page);border:1px solid var(--ef-line);border-radius:8px;}
+ body.ef-simple-ui :is(.cob-pay-seg-btn,.cob-status-seg-btn):not(.active){color:var(--ef-muted);background:transparent;}
+ body.ef-simple-ui .cob-pay-seg-btn.active{background:#2259ce;color:#fff;box-shadow:none;}
+ body.ef-simple-ui :is(.cob-btn-save-hero,.cob-status-seg-btn.active){box-shadow:none;}
+ body.ef-simple-ui .cob-btn-save-hero{background:#2259ce;border-radius:8px;}
+ body.ef-simple-ui .cob-btn-reset-hero{background:var(--ef-surface);color:var(--ef-ink);border-color:var(--ef-line);border-radius:8px;}
+ body.ef-simple-ui .cob-btn-reset-hero:hover{background:var(--ef-soft);}
+ body.ef-simple-ui .cob-pay-subdetail :is(select,input){background:var(--ef-surface)!important;color:var(--ef-ink)!important;border-color:var(--ef-line)!important;}
+}
+@media screen and (min-width:1200px){body.ef-simple-ui .cob-hero-card{top:100px;}}
