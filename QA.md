@@ -54,3 +54,10 @@ Corrigido CSS base do módulo: modalidade empilhada no celular, botões com queb
 - Removida ação duplicada ao lado da busca.
 - Build e 8 testes de service worker aprovados; sintaxe JavaScript verificada.
 - Testes de navegador atualizados, mas não executados neste ambiente sem Chromium.
+
+### Layout desktop corporativo
+- Barra lateral a partir de 1200px e cabeçalho contextual com ações.
+- Conteúdo fluido limitado a 1664px, centralizado em monitores grandes.
+- Grids de indicadores, avaliações, cobranças e formulários ajustados.
+- Testes de navegador ampliados para 1199, 1920 e 2560px (execução pendente).
+- Build, sintaxe JS e 8 testes offline aprovados. Validação visual pendente: Chromium indisponível.

@@ -38,6 +38,7 @@ function arrangeNavigation(){
  }
  const active=document.querySelector('.tab-panel.active');
  if(form)form.hidden=active?.id!=='tab-historico';
+ const heading=$('ef-workspace-title');if(heading)heading.textContent=routes[active?.id]?.[1]||'EvoluFísico';
  $('ef-tools').classList.toggle('ef-tools-active',active?.id==='tab-diagnostics');
 }
 function arrangeDetails(){
@@ -69,6 +70,9 @@ function mount(){
  document.body.classList.add('ef-simple-ui');
  const header=document.querySelector('.top-navbar'),nav=header?.querySelector(':scope > .nav-tabs'),oldActions=header?.querySelector(':scope > .nav-actions');if(!header||!nav||!oldActions)return;
  nav.setAttribute('aria-label','Navegação principal');
+ const workspace=document.createElement('div');workspace.id='ef-workspace-heading';
+ const title=document.createElement('span');title.id='ef-workspace-title';workspace.append(title);
+ const version=document.createElement('small');version.textContent='9.0-beta';workspace.append(version);header.after(workspace);
  const actions=document.createElement('div');actions.id='ef-primary-actions';
  const tools=document.createElement('details');tools.id='ef-tools';
  const summary=document.createElement('summary');summary.textContent='Ferramentas';summary.setAttribute('aria-label','Abrir ferramentas e configurações');tools.append(summary);

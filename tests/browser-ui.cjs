@@ -13,7 +13,7 @@ const server=http.createServer((q,r)=>{try{const u=new URL(q.url,'http://localho
  assert.equal(await p.locator('.tab-panel.active').getAttribute('id'),'tab-painel');passed.push('Página inicial e navegação principal');
  assert.equal(await p.locator('#tab-btn-form').isVisible(),false);await p.locator('#tab-btn-history').click();
  await p.locator('#tab-btn-form').click();await p.locator('#nome').fill('Rascunho de teste');await p.locator('#tab-btn-history').click();await p.locator('#tab-btn-form').click();assert.equal(await p.locator('#nome').inputValue(),'Rascunho de teste');passed.push('Navegar preserva o rascunho');
- for(const width of [320,390,768,1440]){
+ for(const width of [320,390,768,1199,1440,1920,2560]){
  await p.setViewportSize({width,height:900});
  const geometry=await p.evaluate(()=>{const rect=s=>document.querySelector(s).getBoundingClientRect();const brand=rect('.brand-wrapper'),actions=rect('#ef-primary-actions');return {overflow:document.documentElement.scrollWidth>innerWidth,overlap:brand.right>actions.left,steps:[...document.querySelectorAll('.step-indicator')].every(x=>{const r=x.getBoundingClientRect();return r.left>=0&&r.right<=innerWidth})}});
  assert.deepEqual(geometry,{overflow:false,overlap:false,steps:true},`viewport ${width}`);passed.push(`Formulário e cabeçalho em ${width}px`);
@@ -25,7 +25,7 @@ const server=http.createServer((q,r)=>{try{const u=new URL(q.url,'http://localho
  await p.locator('#tab-btn-lab77').click();assert(await p.locator('#tab-lab77').isVisible());assert.equal(await p.locator('#ef-tools-advanced #tab-btn-lab77').count(),0);passed.push('Calculadora acessível pela barra principal');
  await p.locator('#ef-tools>summary').click();await p.locator('#tab-btn-diagnostics').click();assert(await p.locator('#tab-diagnostics').isVisible());passed.push('Diagnóstico preservado em Ferramentas');
  await p.locator('#tab-btn-history').click();await p.locator('#ef-history-export>summary').click();
- for(const width of [320,390,768,1440]){
+ for(const width of [320,390,768,1199,1440,1920,2560]){
   await p.setViewportSize({width,height:900});
   assert.equal(await p.locator('#tab-historico .search-bar-container button[onclick="resetFormulario()"]').count(),0);
   const height=await p.locator('#tab-btn-form').evaluate(b=>b.getBoundingClientRect().height);
