@@ -74,22 +74,18 @@ function mount(){
  const title=document.createElement('span');title.id='ef-workspace-title';workspace.append(title);
  const version=document.createElement('small');version.textContent='9.0-beta';workspace.append(version);header.after(workspace);
  const actions=document.createElement('div');actions.id='ef-primary-actions';
- const tools=document.createElement('details');tools.id='ef-tools';
- const summary=document.createElement('summary');summary.textContent='Ferramentas';summary.setAttribute('aria-label','Abrir ferramentas e configurações');tools.append(summary);
+ const tools=document.createElement('div');tools.id='ef-tools';tools.setAttribute('aria-label','Suporte e preferências');
  const content=document.createElement('div');content.id='ef-tools-content';
  const advanced=document.createElement('div');advanced.id='ef-tools-advanced';advanced.className='ef-tools-group';
  const heading=document.createElement('p');heading.textContent='Avaliação e suporte';advanced.append(heading);content.append(advanced);
  const heading2=document.createElement('p');heading2.textContent='Dados e preferências';content.append(heading2);
- oldActions.classList.add('ef-tools-group');content.append(oldActions);tools.append(content);actions.append(tools);header.append(actions);
+ oldActions.classList.add('ef-tools-group');content.append(oldActions);tools.append(content);header.append(tools,actions);
  const brand=header.querySelector('.brand-wrapper');brand.onclick=e=>{e.preventDefault();window.switchTab('tab-painel')};
  setupForm();arrangeNavigation();arrangeDetails();
- const oldSwitch=window.switchTab;window.switchTab=function(id){const result=oldSwitch.apply(this,arguments);tools.open=false;arrangeNavigation();queueMicrotask(arrangeDetails);return result};
+ const oldSwitch=window.switchTab;window.switchTab=function(id){const result=oldSwitch.apply(this,arguments);arrangeNavigation();queueMicrotask(arrangeDetails);return result};
  let pending=false;const observer=new MutationObserver(()=>{if(pending)return;pending=true;queueMicrotask(()=>{pending=false;arrangeNavigation();arrangeDetails()})});
  observer.observe(nav,{childList:true});observer.observe(advanced,{childList:true});
  ['ef55-painel','patient-view-content'].forEach(id=>{if($(id))observer.observe($(id),{childList:true,subtree:true})});
- document.addEventListener('click',e=>{if(tools.open&&!tools.contains(e.target))tools.open=false});
- content.addEventListener('click',e=>{if(e.target.closest('button'))tools.open=false});
- document.addEventListener('keydown',e=>{if(e.key==='Escape'&&tools.open){tools.open=false;summary.focus()}});
  // Returning to a draft never resets its fields. Initial home is only a navigation change.
  window.switchTab('tab-painel');
  let printStates=[];window.addEventListener('beforeprint',()=>{printStates=[...document.querySelectorAll('details.ef-simple-fold')].map(d=>[d,d.open]);printStates.forEach(([d])=>d.open=true)});

@@ -214,3 +214,28 @@ body.ef-simple-ui #tab-btn-form[hidden]{display:none!important;}
  body.ef-simple-ui .history-client-name{overflow-wrap:anywhere;}
 }
 @media print{#ef-workspace-heading{display:none!important;}}
+
+/* Support and preferences are direct navigation groups, not a dropdown. */
+@media screen{
+ body.ef-simple-ui #ef-tools-content{position:static;width:100%;max-width:none;max-height:none;overflow:visible;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none;}
+ body.ef-simple-ui #ef-tools{min-width:0;}
+ body.ef-simple-ui #ef-tools-content p{margin:20px 12px 8px;font-size:10px;letter-spacing:.08em;}
+ body.ef-simple-ui #ef-tools-content button{line-height:1.4!important;}
+ body.ef-simple-ui #ef-tools-content button.active{background:var(--ef-soft)!important;color:var(--ef-accent)!important;box-shadow:inset 3px 0 var(--ef-accent)!important;}
+}
+@media screen and (min-width:1200px){
+ body.ef-simple-ui .top-navbar{gap:16px!important;overflow-y:auto!important;}
+ body.ef-simple-ui .top-navbar>.nav-tabs{flex:0 0 auto;overflow:visible!important;}
+ body.ef-simple-ui #ef-tools{border-top:1px solid var(--ef-line);padding-top:0;flex-shrink:0;}
+ body.ef-simple-ui #ef-tools-content .nav-actions{margin-left:0!important;}
+}
+@media screen and (max-width:1199px){
+ body.ef-simple-ui .top-navbar{position:relative!important;}
+ body.ef-simple-ui #ef-tools{grid-column:1/-1;grid-row:3;border-top:1px solid var(--ef-line);padding:8px 0 12px;}
+ body.ef-simple-ui #ef-tools-content{display:grid;grid-template-columns:minmax(0,1fr);gap:6px;}
+ body.ef-simple-ui #ef-tools-content p{margin:4px 8px;font-size:9px;}
+ body.ef-simple-ui #ef-tools-content .ef-tools-group{flex-direction:row!important;flex-wrap:nowrap!important;overflow-x:auto!important;gap:6px!important;}
+ body.ef-simple-ui #ef-tools-advanced{align-items:center!important;}
+ body.ef-simple-ui #ef-tools-advanced p{flex-shrink:0;}
+ body.ef-simple-ui #ef-tools-content button{width:auto!important;flex:0 0 auto;white-space:nowrap!important;font-size:12px!important;border:1px solid var(--ef-line)!important;}
+}
