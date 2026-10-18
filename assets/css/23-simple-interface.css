@@ -287,7 +287,7 @@ body.ef-simple-ui #tab-btn-form[hidden]{display:none!important;}
  body.ef-simple-ui #ef-tools-content .ef-sidebar-section button{
   display:flex!important;align-items:center!important;justify-content:flex-start!important;
   width:100%!important;min-height:42px!important;margin:0!important;padding:10px 12px!important;
-  background:var(--ef-soft)!important;color:var(--ef-accent)!important;
+  background:var(--ef-surface)!important;color:var(--ef-muted)!important;
   border:1px solid var(--ef-line)!important;border-radius:7px!important;
   font-size:12px!important;font-weight:600!important;line-height:1.4!important;
   text-align:left!important;gap:8px!important;box-shadow:none!important;
@@ -296,7 +296,8 @@ body.ef-simple-ui #tab-btn-form[hidden]{display:none!important;}
   border-color:var(--ef-accent)!important;
  }
  body.ef-simple-ui #ef-tools-content .ef-sidebar-section button.active{
-  border-color:var(--ef-accent)!important;box-shadow:inset 3px 0 var(--ef-accent)!important;
+  background:var(--ef-soft)!important;color:var(--ef-accent)!important;
+  border-color:var(--ef-line)!important;box-shadow:inset 3px 0 var(--ef-accent)!important;
  }
  body.ef-simple-ui #ef-tools-content .ef-sidebar-section>.ef-tools-group{gap:7px!important;}
 }
