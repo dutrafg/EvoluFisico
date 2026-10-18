@@ -47,3 +47,10 @@ Identificação e ações em linhas separadas; fechar em posição própria; bot
 ## 8.9.3 — Cobranças independente do tema simplificado
 
 Corrigido CSS base do módulo: modalidade empilhada no celular, botões com quebra de texto, cabeçalho flexível. Testado em Chromium com ef-simple-ui presente e ausente, versões modular e autônoma, em 320/390/768/1440px; alternância entre Individual e Dupla e visibilidade do segundo aluno verificadas. Dezoito cenários aprovados. Resultados em tests/billing-layout-results.json. Android físico não testado.
+
+## 9.0-beta — Navegação das avaliações
+
+- Nova avaliação disponível no cabeçalho somente em Avaliações.
+- Removida ação duplicada ao lado da busca.
+- Build e 8 testes de service worker aprovados; sintaxe JavaScript verificada.
+- Testes de navegador atualizados, mas não executados neste ambiente sem Chromium.

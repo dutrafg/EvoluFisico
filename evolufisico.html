@@ -77,7 +77,7 @@
     })();
 </script>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<title>EvoluFísico v8.9.3 Teste - Clinical Suite</title>
+<title>EvoluFísico v9.0-beta - Clinical Suite</title>
 <meta content="#f2f2f7" name="theme-color"/>
 <meta content="telephone=no" name="format-detection"/>
 <meta content="EvoluFísico — avaliação física e composição corporal." name="description"/>
@@ -4517,7 +4517,7 @@ body.dark-mode .photo-thumb {
 <div class="ef-splash-titles">
 <h1 class="ef-splash-title">EvoluFísico</h1>
 <p class="ef-splash-subtitle">Avaliação Física &amp; Composição Corporal</p>
-<div class="ef-splash-version-pill">v8.9.3 Teste • Clinical Suite</div>
+<div class="ef-splash-version-pill">v9.0-beta • Clinical Suite</div>
 </div>
 <div class="ef-splash-loader-box">
 <div class="ef-splash-bar">
@@ -4535,7 +4535,7 @@ body.dark-mode .photo-thumb {
 <div class="brand-title-group">
 <span class="brand-title-row">
 <span class="brand-title">EvoluFísico</span>
-<span class="brand-version" title="Versão do aplicativo">v8.9.3 Teste</span>
+<span class="brand-version" title="Versão do aplicativo">v9.0-beta</span>
 </span>
 <span class="brand-subtitle">Avaliação Física &amp; Composição Corporal</span>
 </div>
@@ -5148,7 +5148,6 @@ body.dark-mode .photo-thumb {
 <input id="filtro-busca" oninput="filtrarAvaliacoes()" placeholder="🔍 Buscar por nome do aluno, e-mail ou semana..." type="text"/>
 </div>
 <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-<button class="btn btn-primary btn-sm" onclick="resetFormulario()">➕ Nova Avaliação</button>
 <button class="btn btn-secondary btn-sm" onclick="abrirModalCentralBackup('exportar')">⬇️ Exportar Backup</button>
 <button class="btn btn-secondary btn-sm" onclick="exportarCSV()">📊 Exportar CSV</button>
 <button class="btn btn-secondary btn-sm" onclick="abrirModalCentralBackup('importar')">⬆️ Importar JSON</button>
@@ -9136,7 +9135,7 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
                     </div>
 
                     <div style="margin-top:10px; font-size:0.72rem; color:#64748b; text-align:right;">
-                        Página 1 de 2 &bull; Emitido em ${new Date().toLocaleDateString('pt-BR')} &bull; EvoluFísico v8.9.3 Teste
+                        Página 1 de 2 &bull; Emitido em ${new Date().toLocaleDateString('pt-BR')} &bull; EvoluFísico v9.0-beta
                     </div>
                 </div>
 
@@ -9220,7 +9219,7 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
                     </div>
 
                     <div style="margin-top:12px; font-size:0.72rem; color:#64748b; text-align:right;">
-                        Página 2 de 2 &bull; EvoluFísico v8.9.3 Teste &bull; Documento Oficial
+                        Página 2 de 2 &bull; EvoluFísico v9.0-beta &bull; Documento Oficial
                     </div>
                 </div>
             `;
@@ -9443,7 +9442,7 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
                 <div class="cm-pro"><b>${esc(proNome)}</b><span>${esc(proCref)}</span></div></div>`;
 
             const shell = (n, inner, full) => `<section class="cm-page${n === totalPaginas ? ' cm-last' : ''}">${full ? headFull : headMini}${inner}
-                <div class="cm-foot"><span>EvoluFísico v8.9.3 Teste · Relatório comparativo · Emitido em ${emissao}</span><span>Página ${n} de ${totalPaginas}</span></div></section>`;
+                <div class="cm-foot"><span>EvoluFísico v9.0-beta · Relatório comparativo · Emitido em ${emissao}</span><span>Página ${n} de ${totalPaginas}</span></div></section>`;
 
             const kpi = (label, valor, badge, de, acc) => `<div class="cm-kpi" style="--acc:${acc}"><small>${label}</small><b>${valor}</b><div>${badge}</div><em>${de}</em></div>`;
 
@@ -10723,7 +10722,7 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
                     financeiro,
                     checksumFinanceiro: financeiro ? await this.calcularChecksum(JSON.stringify(financeiro)) : null,
                     app: "EvoluFisico",
-                    versaoApp: "8.9.3",
+                    versaoApp: "9.0-beta",
                     schemaVersion: 2,
                     tipoBackup: tipo,
                     dataExportacao: new Date().toISOString(),
@@ -13588,7 +13587,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 </script>
 <script id="ef-cobranca-script">/* 22-runtime.js */
 /* ==========================================================================
-   EVOLUFÍSICO v8.9.3 Teste — MÓDULO DE COBRANÇA, PRECIFICAÇÃO E HISTÓRICO
+   EVOLUFÍSICO v9.0-beta — MÓDULO DE COBRANÇA, PRECIFICAÇÃO E HISTÓRICO
    Foco exclusivo na precificação e histórico com Totais e Por Aluno
    ========================================================================== */
 (function() {
@@ -14754,7 +14753,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
         protect: async function(key=EF_Security.key) { const list=await loadBilling(); await writeBilling(list,key,true); },
         unprotect: async function() {const list=await loadBilling();await writeBilling(list,null,false);},
         clearMemory: function(){billingCache=null;billingRaw=null;},
-        version: '8.9.3',
+        version: '9.0-beta',
         mounted: true,
         state: state,
         mount: mount,
@@ -16121,8 +16120,10 @@ body.ef-simple-ui #view-modal #btn-modal-edit {grid-column:1/-1;}
 body.ef-simple-ui #view-modal #modal-body-content {padding:16px!important;}
 }
 }
+
+body.ef-simple-ui #tab-btn-form[hidden]{display:none!important;}
 </style>
-<script>/* Interface 8.9.3: reorganiza os mesmos controles, sem substituir suas funções. */
+<script>/* Interface 9.0-beta: reorganiza os mesmos controles, sem substituir suas funções. */
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
@@ -16161,6 +16162,7 @@ function arrangeNavigation(){
   const active=$(route)?.classList.contains('active');b.classList.toggle('active',!!active);if(active)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
  }
  const active=document.querySelector('.tab-panel.active');
+ if(form)form.hidden=active?.id!=='tab-historico';
  $('ef-tools').classList.toggle('ef-tools-active',active?.id==='tab-diagnostics');
 }
 function arrangeDetails(){
@@ -16214,7 +16216,7 @@ function mount(){
  let printStates=[];window.addEventListener('beforeprint',()=>{printStates=[...document.querySelectorAll('details.ef-simple-fold')].map(d=>[d,d.open]);printStates.forEach(([d])=>d.open=true)});
  window.addEventListener('afterprint',()=>{printStates.forEach(([d,open])=>d.open=open);printStates=[]});
  const edit=window.editarAvaliacao;if(typeof edit==='function')window.editarAvaliacao=function(){const r=edit.apply(this,arguments);const bia=$('ef-method-1');if(bia)bia.open=[...bia.querySelectorAll('input,textarea')].some(x=>x.value.trim());return r};
- window.EFSimpleUI={version:'8.9.3',arrangeNavigation,arrangeDetails};
+ window.EFSimpleUI={version:'9.0-beta',arrangeNavigation,arrangeDetails};
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 })();

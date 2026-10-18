@@ -1,6 +1,6 @@
 /* 22-runtime.js */
 /* ==========================================================================
-   EVOLUFÍSICO v8.9.3 Teste — MÓDULO DE COBRANÇA, PRECIFICAÇÃO E HISTÓRICO
+   EVOLUFÍSICO v9.0-beta — MÓDULO DE COBRANÇA, PRECIFICAÇÃO E HISTÓRICO
    Foco exclusivo na precificação e histórico com Totais e Por Aluno
    ========================================================================== */
 (function() {
@@ -1166,7 +1166,7 @@
         protect: async function(key=EF_Security.key) { const list=await loadBilling(); await writeBilling(list,key,true); },
         unprotect: async function() {const list=await loadBilling();await writeBilling(list,null,false);},
         clearMemory: function(){billingCache=null;billingRaw=null;},
-        version: '8.9.3',
+        version: '9.0-beta',
         mounted: true,
         state: state,
         mount: mount,

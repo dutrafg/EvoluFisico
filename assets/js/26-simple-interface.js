@@ -1,4 +1,4 @@
-/* Interface 8.9.3: reorganiza os mesmos controles, sem substituir suas funções. */
+/* Interface 9.0-beta: reorganiza os mesmos controles, sem substituir suas funções. */
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
@@ -37,6 +37,7 @@ function arrangeNavigation(){
   const active=$(route)?.classList.contains('active');b.classList.toggle('active',!!active);if(active)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
  }
  const active=document.querySelector('.tab-panel.active');
+ if(form)form.hidden=active?.id!=='tab-historico';
  $('ef-tools').classList.toggle('ef-tools-active',active?.id==='tab-diagnostics');
 }
 function arrangeDetails(){
@@ -90,7 +91,7 @@ function mount(){
  let printStates=[];window.addEventListener('beforeprint',()=>{printStates=[...document.querySelectorAll('details.ef-simple-fold')].map(d=>[d,d.open]);printStates.forEach(([d])=>d.open=true)});
  window.addEventListener('afterprint',()=>{printStates.forEach(([d,open])=>d.open=open);printStates=[]});
  const edit=window.editarAvaliacao;if(typeof edit==='function')window.editarAvaliacao=function(){const r=edit.apply(this,arguments);const bia=$('ef-method-1');if(bia)bia.open=[...bia.querySelectorAll('input,textarea')].some(x=>x.value.trim());return r};
- window.EFSimpleUI={version:'8.9.3',arrangeNavigation,arrangeDetails};
+ window.EFSimpleUI={version:'9.0-beta',arrangeNavigation,arrangeDetails};
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 })();

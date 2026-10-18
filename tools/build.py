@@ -14,6 +14,6 @@ a=re.sub(r'<link([^>]*?) rel="stylesheet" href="\./([^"]+)"[^>]*>',style,a)
 files=['./','./index.html','./evolufisico.html','./manifest.webmanifest','./favicon.svg','./icon-192.png','./icon-512.png']+['./'+str(p.relative_to(ROOT)) for p in sorted((ROOT/'assets').rglob('*')) if p.is_file()]
 sw=(ROOT/'sw.js').read_text();sw=re.sub(r'/\* PRECACHE_START \*/.*?/\* PRECACHE_END \*/','/* PRECACHE_START */'+json.dumps(files)+'/* PRECACHE_END */',sw,flags=re.S)
 fingerprint=hashlib.sha256((s+a+(ROOT/'manifest.webmanifest').read_text()).encode()).hexdigest()[:12]
-sw=re.sub(r"const CACHE_NAME = '[^']+';",f"const CACHE_NAME = 'evolufisico-8.9.3-{fingerprint}';",sw)
+sw=re.sub(r"const CACHE_NAME = '[^']+';",f"const CACHE_NAME = 'evolufisico-9.0-beta-{fingerprint}';",sw)
 (ROOT/'sw.js').write_text(sw)
 print('Build concluído:',len(files),'recursos;',fingerprint)

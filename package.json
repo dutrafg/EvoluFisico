@@ -1,6 +1,6 @@
 {
   "name": "evolufisico",
-  "version": "8.9.3",
+  "version": "9.0-beta",
   "private": true,
   "scripts": {
     "build": "python3 tools/build.py",

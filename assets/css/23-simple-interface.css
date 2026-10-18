@@ -149,3 +149,5 @@ body.ef-simple-ui #view-modal #btn-modal-edit {grid-column:1/-1;}
 body.ef-simple-ui #view-modal #modal-body-content {padding:16px!important;}
 }
 }
+
+body.ef-simple-ui #tab-btn-form[hidden]{display:none!important;}

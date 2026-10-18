@@ -1,6 +1,6 @@
-# EvoluFísico 8.9.3 — versão para teste
+# EvoluFísico 9.0-beta — versão para teste
 
-Correções locais sobre o commit `c99668a8ac9849a383fef151a58924c105af4bb6` do repositório dutrafg/EvoluFisico. Este pacote não foi publicado no GitHub ou na Vercel.
+Correções locais sobre o commit `c99668a8ac9849a383fef151a58924c105af4bb6` do repositório dutrafg/EvoluFisico. Versão 9.0-beta preparada para atualização do repositório.
 
 ## Testar
 
@@ -48,4 +48,4 @@ Consulte `QA.md` para resultados e limites da verificação.
 
 Teste opcional em navegador real: instale Playwright separadamente e execute `node tests/browser-ui.cjs`. Se necessário, defina `EF_CHROMIUM_PATH` com o caminho do Chromium.
 
-Nesta entrega, abra EvoluFisico_8.9.3.html para testar o arquivo único identificado pela versão. A correção de Cobranças agora pertence ao CSS base e funciona independentemente da interface simplificada.
+Abra `evolufisico.html` para testar o arquivo único. A correção de Cobranças agora pertence ao CSS base e funciona independentemente da interface simplificada.

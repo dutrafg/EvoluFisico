@@ -2749,7 +2749,7 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
                     </div>
 
                     <div style="margin-top:10px; font-size:0.72rem; color:#64748b; text-align:right;">
-                        Página 1 de 2 &bull; Emitido em ${new Date().toLocaleDateString('pt-BR')} &bull; EvoluFísico v8.9.3 Teste
+                        Página 1 de 2 &bull; Emitido em ${new Date().toLocaleDateString('pt-BR')} &bull; EvoluFísico v9.0-beta
                     </div>
                 </div>
 
@@ -2833,7 +2833,7 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
                     </div>
 
                     <div style="margin-top:12px; font-size:0.72rem; color:#64748b; text-align:right;">
-                        Página 2 de 2 &bull; EvoluFísico v8.9.3 Teste &bull; Documento Oficial
+                        Página 2 de 2 &bull; EvoluFísico v9.0-beta &bull; Documento Oficial
                     </div>
                 </div>
             `;
@@ -3056,7 +3056,7 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
                 <div class="cm-pro"><b>${esc(proNome)}</b><span>${esc(proCref)}</span></div></div>`;
 
             const shell = (n, inner, full) => `<section class="cm-page${n === totalPaginas ? ' cm-last' : ''}">${full ? headFull : headMini}${inner}
-                <div class="cm-foot"><span>EvoluFísico v8.9.3 Teste · Relatório comparativo · Emitido em ${emissao}</span><span>Página ${n} de ${totalPaginas}</span></div></section>`;
+                <div class="cm-foot"><span>EvoluFísico v9.0-beta · Relatório comparativo · Emitido em ${emissao}</span><span>Página ${n} de ${totalPaginas}</span></div></section>`;
 
             const kpi = (label, valor, badge, de, acc) => `<div class="cm-kpi" style="--acc:${acc}"><small>${label}</small><b>${valor}</b><div>${badge}</div><em>${de}</em></div>`;
 
@@ -4336,7 +4336,7 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
                     financeiro,
                     checksumFinanceiro: financeiro ? await this.calcularChecksum(JSON.stringify(financeiro)) : null,
                     app: "EvoluFisico",
-                    versaoApp: "8.9.3",
+                    versaoApp: "9.0-beta",
                     schemaVersion: 2,
                     tipoBackup: tipo,
                     dataExportacao: new Date().toISOString(),
