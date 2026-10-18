@@ -11700,7 +11700,6 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
         window.descartarRascunho = descartarRascunho;
         window.addEventListener('afterprint', () => {
             document.body.classList.remove('print-mode-single', 'print-mode-comparison');
-            document.body.className = '';
         });
 
         window.abrirModalDetalhes = abrirModalDetalhes;

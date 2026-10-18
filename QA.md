@@ -61,3 +61,9 @@ Corrigido CSS base do módulo: modalidade empilhada no celular, botões com queb
 - Grids de indicadores, avaliações, cobranças e formulários ajustados.
 - Testes de navegador ampliados para 1199, 1920 e 2560px (execução pendente).
 - Build, sintaxe JS e 8 testes offline aprovados. Validação visual pendente: Chromium indisponível.
+
+### Correção do layout após impressão/PDF
+- Causa: afterprint apagava todas as classes do body, desativando ef-simple-ui.
+- Limpeza limitada às classes de impressão; preserva layout e tema.
+- Teste de regressão executa o handler real, repete 3 ciclos nos temas claro/escuro e verifica preservação de classes e remoção do estado de impressão.
+- Build e 8 testes offline aprovados. Teste de navegador ampliado; execução visual pendente neste ambiente.

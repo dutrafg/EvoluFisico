@@ -11,6 +11,7 @@ const server=http.createServer((q,r)=>{try{const u=new URL(q.url,'http://localho
  const context=await browser.newContext();const p=await context.newPage();p.on('pageerror',e=>errors.push(e.message));
  const url=`http://127.0.0.1:${server.address().port}`;await p.goto(url,{waitUntil:'networkidle'});
  assert.equal(await p.locator('.tab-panel.active').getAttribute('id'),'tab-painel');passed.push('Página inicial e navegação principal');
+ await p.evaluate(()=>{document.body.classList.add('print-mode-single','print-mode-comparison');window.dispatchEvent(new Event('afterprint'))});assert(await p.locator('body').evaluate(b=>b.classList.contains('ef-simple-ui')));assert.equal(await p.locator('body').evaluate(b=>b.classList.contains('print-mode-single')||b.classList.contains('print-mode-comparison')),false);passed.push('Fechar impressão mantém o layout da aplicação');
  assert.equal(await p.locator('#tab-btn-form').isVisible(),false);await p.locator('#tab-btn-history').click();
  await p.locator('#tab-btn-form').click();await p.locator('#nome').fill('Rascunho de teste');await p.locator('#tab-btn-history').click();await p.locator('#tab-btn-form').click();assert.equal(await p.locator('#nome').inputValue(),'Rascunho de teste');passed.push('Navegar preserva o rascunho');
  for(const width of [320,390,768,1199,1440,1920,2560]){

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "python3 tools/build.py",
-    "test": "node tests/integration.cjs && node tests/service-worker.cjs && node tests/modular.cjs"
+    "test": "node tests/print-cleanup.cjs && node tests/integration.cjs && node tests/service-worker.cjs && node tests/modular.cjs"
   },
   "devDependencies": {
     "jsdom": "30.1.3",
