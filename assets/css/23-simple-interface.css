@@ -239,3 +239,24 @@ body.ef-simple-ui #tab-btn-form[hidden]{display:none!important;}
  body.ef-simple-ui #ef-tools-advanced p{flex-shrink:0;}
  body.ef-simple-ui #ef-tools-content button{width:auto!important;flex:0 0 auto;white-space:nowrap!important;font-size:12px!important;border:1px solid var(--ef-line)!important;}
 }
+
+/* Sidebar accordions match the primary navigation controls. */
+@media screen{
+ body.ef-simple-ui #ef-tools-content{display:grid;gap:8px;}
+ body.ef-simple-ui .ef-sidebar-section{min-width:0;border:1px solid var(--ef-line);border-radius:8px;background:var(--ef-surface);}
+ body.ef-simple-ui .ef-sidebar-section>summary{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:46px;padding:10px 12px;list-style:none;cursor:pointer;color:var(--ef-muted);font-size:12px;font-weight:600;line-height:1.4;}
+ body.ef-simple-ui .ef-sidebar-section>summary::-webkit-details-marker{display:none;}
+ body.ef-simple-ui .ef-sidebar-section>summary:after{content:'';width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);flex-shrink:0;margin-right:2px;}
+ body.ef-simple-ui .ef-sidebar-section[open]>summary{color:var(--ef-accent);background:var(--ef-soft);border-radius:7px 7px 0 0;border-bottom:1px solid var(--ef-line);}
+ body.ef-simple-ui .ef-sidebar-section[open]>summary:after{transform:rotate(225deg);}
+ body.ef-simple-ui .ef-sidebar-section>summary:hover{background:var(--ef-soft);}
+ body.ef-simple-ui #ef-tools-content .ef-sidebar-section>.ef-tools-group{padding:6px!important;gap:4px!important;width:100%!important;margin:0!important;box-sizing:border-box;}
+ body.ef-simple-ui #ef-tools-content .ef-sidebar-section:not([open])>.ef-tools-group{display:none!important;}
+ body.ef-simple-ui #ef-tools-content .ef-sidebar-section button{font-size:12px!important;min-height:40px!important;}
+ body.ef-simple-ui #ef-tools{padding-top:16px;}
+}
+@media screen and (max-width:1199px){
+ body.ef-simple-ui #ef-tools-content{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;}
+ body.ef-simple-ui #ef-tools-content .ef-sidebar-section>.ef-tools-group{flex-direction:column!important;align-items:stretch!important;overflow:visible!important;}
+ body.ef-simple-ui #ef-tools-content .ef-sidebar-section button{white-space:normal!important;width:100%!important;border:0!important;}
+}

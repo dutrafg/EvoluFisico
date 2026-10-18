@@ -77,9 +77,13 @@ function mount(){
  const tools=document.createElement('div');tools.id='ef-tools';tools.setAttribute('aria-label','Suporte e preferências');
  const content=document.createElement('div');content.id='ef-tools-content';
  const advanced=document.createElement('div');advanced.id='ef-tools-advanced';advanced.className='ef-tools-group';
- const heading=document.createElement('p');heading.textContent='Avaliação e suporte';advanced.append(heading);content.append(advanced);
- const heading2=document.createElement('p');heading2.textContent='Dados e preferências';content.append(heading2);
- oldActions.classList.add('ef-tools-group');content.append(oldActions);tools.append(content);header.append(tools,actions);
+ function menuSection(id,label,items){
+  const section=document.createElement('details');section.id=id;section.className='ef-sidebar-section';
+  const summary=document.createElement('summary');summary.textContent=label;section.append(summary,items);content.append(section);
+ }
+ menuSection('ef-support-section','Avaliação e suporte',advanced);
+ oldActions.classList.add('ef-tools-group');menuSection('ef-preferences-section','Dados e preferências',oldActions);
+ tools.append(content);header.append(tools,actions);
  const brand=header.querySelector('.brand-wrapper');brand.onclick=e=>{e.preventDefault();window.switchTab('tab-painel')};
  setupForm();arrangeNavigation();arrangeDetails();
  const oldSwitch=window.switchTab;window.switchTab=function(id){const result=oldSwitch.apply(this,arguments);arrangeNavigation();queueMicrotask(arrangeDetails);return result};
