@@ -19,7 +19,17 @@ const server=http.createServer((q,r)=>{try{const u=new URL(q.url,'http://localho
  }
  await p.locator('#ef-professional-fields>summary').click();assert(await p.locator('#avaliador_nome').isVisible());passed.push('Dados profissionais acessíveis');
  for(const [button,panel] of [['tab-btn-painel','tab-painel'],['tab-btn-history','tab-historico'],['tab-btn-compare','tab-comparison'],['tab-btn-cobranca','tab-cobranca']]){await p.locator('#'+button).click();assert(await p.locator('#'+panel).isVisible())}passed.push('Quatro áreas principais acessíveis');
- for(const [button,panel] of [['tab-btn-lab77','tab-lab77'],['tab-btn-diagnostics','tab-diagnostics']]){await p.locator('#ef-tools>summary').click();await p.locator('#'+button).click();assert(await p.locator('#'+panel).isVisible())}passed.push('Calculadoras e diagnóstico acessíveis');
+ const navOrder=await p.locator('.top-navbar>.nav-tabs>.nav-tab-btn').evaluateAll(bs=>bs.map(b=>b.id));
+ assert.deepEqual(navOrder,['tab-btn-painel','tab-btn-history','tab-btn-compare','tab-btn-lab77','tab-btn-cobranca']);passed.push('Calculadora entre Evolução e Cobranças na navegação principal');
+ await p.locator('#tab-btn-lab77').click();assert(await p.locator('#tab-lab77').isVisible());assert.equal(await p.locator('#ef-tools-advanced #tab-btn-lab77').count(),0);passed.push('Calculadora acessível pela barra principal');
+ await p.locator('#ef-tools>summary').click();await p.locator('#tab-btn-diagnostics').click();assert(await p.locator('#tab-diagnostics').isVisible());passed.push('Diagnóstico preservado em Ferramentas');
+ await p.locator('#tab-btn-history').click();await p.locator('#ef-history-export>summary').click();
+ for(const width of [320,390,768,1440]){
+  await p.setViewportSize({width,height:900});
+  const height=await p.locator('#tab-historico .search-bar-container button[onclick="resetFormulario()"]:visible').evaluate(b=>b.getBoundingClientRect().height);
+  assert(height<=48,'Nova avaliação esticou para '+height+'px em '+width+'px');
+ }
+ passed.push('Botão Nova avaliação mantém altura normal ao expandir exportação/importação');
  await p.locator('#ef-tools>summary').click();await p.locator('#btn-theme-toggle').click();await p.locator('#tab-btn-painel').click();await p.waitForTimeout(2000);await p.screenshot({path:'/tmp/ef-home-dark.png',fullPage:true});passed.push('Alternância de tema');
  await p.locator('#ef-tools>summary').click();await p.keyboard.press('Escape');assert.equal(await p.locator('#ef-tools').getAttribute('open'),null);passed.push('Menu fecha com Escape');
  await p.evaluate(()=>navigator.serviceWorker.ready);await p.reload({waitUntil:'networkidle'});await context.setOffline(true);await p.reload({waitUntil:'networkidle'});assert(await p.locator('#tab-btn-form').isVisible());await p.locator('#tab-btn-form').click();assert(await p.locator('#nome').isVisible());passed.push('Reabertura offline da SPA');

@@ -9,7 +9,7 @@ const routes={
  'tab-comparison':['tab-btn-compare','Evolução'],
  'tab-cobranca':['tab-btn-cobranca','Cobranças'],
  'tab-novo-checkin':['tab-btn-form','Nova avaliação'],
- 'tab-lab77':['tab-btn-lab77','Calculadoras'],
+ 'tab-lab77':['tab-btn-lab77','Calculadora'],
  'tab-diagnostics':['tab-btn-diagnostics','Diagnóstico']
 };
 function fold(id,title,hint,nodes,parent,before=null){
@@ -22,8 +22,8 @@ function fold(id,title,hint,nodes,parent,before=null){
 }
 function arrangeNavigation(){
  const nav=document.querySelector('.top-navbar > .nav-tabs'),menu=$('ef-tools-content'),actions=$('ef-primary-actions');if(!nav||!menu||!actions)return;
- ['tab-painel','tab-historico','tab-comparison','tab-cobranca'].forEach(route=>{const b=$(routes[route][0]);if(b&&b.parentNode!==nav)nav.append(b)});
- ['tab-lab77','tab-diagnostics'].forEach(route=>{const b=$(routes[route][0]);if(b&&b.parentNode!==$('ef-tools-advanced'))$('ef-tools-advanced').append(b)});
+ ['tab-painel','tab-historico','tab-comparison','tab-lab77','tab-cobranca'].forEach(route=>{const b=$(routes[route][0]);if(b&&b.parentNode!==nav)nav.append(b)});
+ ['tab-diagnostics'].forEach(route=>{const b=$(routes[route][0]);if(b&&b.parentNode!==$('ef-tools-advanced'))$('ef-tools-advanced').append(b)});
  const form=$('tab-btn-form');if(form&&form.parentNode!==actions)actions.prepend(form);
  for(const [route,[id,label]] of Object.entries(routes)){
   const b=$(id);if(!b)continue;b.type='button';b.setAttribute('aria-controls',route);
@@ -37,7 +37,7 @@ function arrangeNavigation(){
   const active=$(route)?.classList.contains('active');b.classList.toggle('active',!!active);if(active)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
  }
  const active=document.querySelector('.tab-panel.active');
- $('ef-tools').classList.toggle('ef-tools-active',['tab-lab77','tab-diagnostics'].includes(active?.id));
+ $('ef-tools').classList.toggle('ef-tools-active',active?.id==='tab-diagnostics');
 }
 function arrangeDetails(){
  const panel=$('ef55-painel');if(panel){
