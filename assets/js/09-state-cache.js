@@ -181,7 +181,7 @@ function patchPdf(){
     var key=String(id),m=cache.pdf.get(key),w=document.getElementById('single-print-wrapper');
     if(m&&m.version===S.version&&w){
       w.innerHTML=m.html;document.body.classList.add('print-mode-single');window.print();
-      setTimeout(function(){document.body.classList.remove('print-mode-single')},1000);return;
+      setTimeout(function(){document.body.classList.remove('print-mode-single')},120000);return;
     }
     originalPdf.apply(this,arguments);
     if(w){cache.pdf.set(key,{version:S.version,html:w.innerHTML})}

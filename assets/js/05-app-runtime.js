@@ -2849,7 +2849,7 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
             window.addEventListener('afterprint', cleanupIndPrint, { once: true });
             document.body.classList.add('print-mode-single');
             window.print();
-            setTimeout(cleanupIndPrint, 1500);
+            setTimeout(cleanupIndPrint, 120000);
         }
 
         function imprimirComparativoPDF() {
@@ -3108,7 +3108,7 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
             window.addEventListener('afterprint', cleanupCmpPrint, { once: true });
             document.body.classList.add('print-mode-single');
             window.print();
-            setTimeout(cleanupCmpPrint, 1500);
+            setTimeout(cleanupCmpPrint, 120000);
         }
 
         function imprimirAvaliacaoDaModal() {
