@@ -13,8 +13,8 @@ function source(){return S.getAvaliacoes?S.getAvaliacoes():[]}
 function pollock(a){
   a=a||{}; var d=a.dobras||{}, sexo=a.sexo==='M'?'M':'F', idade=num(a.idade)||0, peso=num(a.peso)||0;
   var keys=['triceps','subescapular','peitoral','axilar','suprailiaca','abdominal','coxa'], soma=0;
-  for(var i=0;i<keys.length;i++)soma+=num(d[keys[i]])||0;
-  if(soma<=0)return null;
+  for(var i=0;i<keys.length;i++){var v=num(d[keys[i]]);if(v==null||v<=0)return null;soma+=v;}
+  if(soma<=0||!(idade>0)||!(peso>0))return null;
   var densidade=sexo==='M'
     ?1.112-(0.00043499*soma)+(0.00000055*Math.pow(soma,2))-(0.00028826*idade)
     :1.097-(0.00046971*soma)+(0.00000056*Math.pow(soma,2))-(0.00012828*idade);
@@ -36,7 +36,7 @@ function snapshotNow(){var v=S.version;if(snapshotVersion===v&&snapshot)return s
 function workerSource(){return `
 'use strict';
 function n(v){var x=parseFloat(String(v==null?'':v).replace(',','.'));return isFinite(x)?x:null}
-function pollock(a){var d=a.dobras||{},sexo=a.sexo==='M'?'M':'F',idade=n(a.idade)||0,peso=n(a.peso)||0,k=['triceps','subescapular','peitoral','axilar','suprailiaca','abdominal','coxa'],s=0;for(var i=0;i<k.length;i++)s+=n(d[k[i]])||0;if(s<=0)return null;var den=sexo==='M'?1.112-(.00043499*s)+(.00000055*Math.pow(s,2))-(.00028826*idade):1.097-(.00046971*s)+(.00000056*Math.pow(s,2))-(.00012828*idade);var pg=((4.95/den)-4.5)*100;pg=Math.max(3,Math.min(60,pg));var mg=peso>0?peso*pg/100:0,mm=peso>0?peso-mg:0,c='Normal';if(sexo==='M'){if(pg<6)c='Essencial / Muito Baixo';else if(pg<=13)c='Excelente (Atleta)';else if(pg<=17)c='Bom (Fitness)';else if(pg<=24)c='Médio / Aceitável';else c='Elevado / Sobrepeso'}else{if(pg<14)c='Essencial / Muito Baixo';else if(pg<=20)c='Excelente (Atleta)';else if(pg<=24)c='Bom (Fitness)';else if(pg<=31)c='Médio / Aceitável';else c='Elevado / Sobrepeso'}return{soma:s.toFixed(1),densidade:den.toFixed(4),percGordura:pg.toFixed(1),massaGorda:mg.toFixed(1),massaMagra:mm.toFixed(1),classificacao:c}}
+function pollock(a){var d=a.dobras||{},sexo=a.sexo==='M'?'M':'F',idade=n(a.idade)||0,peso=n(a.peso)||0,k=['triceps','subescapular','peitoral','axilar','suprailiaca','abdominal','coxa'],s=0;for(var i=0;i<k.length;i++){var v=n(d[k[i]]);if(v==null||v<=0)return null;s+=v}if(s<=0||!(idade>0)||!(peso>0))return null;var den=sexo==='M'?1.112-(.00043499*s)+(.00000055*Math.pow(s,2))-(.00028826*idade):1.097-(.00046971*s)+(.00000056*Math.pow(s,2))-(.00012828*idade);var pg=((4.95/den)-4.5)*100;pg=Math.max(3,Math.min(60,pg));var mg=peso>0?peso*pg/100:0,mm=peso>0?peso-mg:0,c='Normal';if(sexo==='M'){if(pg<6)c='Essencial / Muito Baixo';else if(pg<=13)c='Excelente (Atleta)';else if(pg<=17)c='Bom (Fitness)';else if(pg<=24)c='Médio / Aceitável';else c='Elevado / Sobrepeso'}else{if(pg<14)c='Essencial / Muito Baixo';else if(pg<=20)c='Excelente (Atleta)';else if(pg<=24)c='Bom (Fitness)';else if(pg<=31)c='Médio / Aceitável';else c='Elevado / Sobrepeso'}return{soma:s.toFixed(1),densidade:den.toFixed(4),percGordura:pg.toFixed(1),massaGorda:mg.toFixed(1),massaMagra:mm.toFixed(1),classificacao:c}}
 function calc(a){var p=n(a.peso),h=n(a.altura),per=a.perimetria||{},c=n(per.cintura),q=n(per.quadril);return{cliente_id:a.cliente_id||String(a.id),id:String(a.id),nome:String(a.nome||''),peso:p,altura:h,idade:n(a.idade),imc:p!=null&&h>0?p/Math.pow(h/100,2):null,rcq:c!=null&&q>0?c/q:null,pollock:pollock(a)}}
 function all(records){return records.map(calc)}
 self.onmessage=function(e){var d=e.data||{};if(d.type==='all')self.postMessage({job:d.job,version:d.version,result:all(d.records||[])});else if(d.type==='one')self.postMessage({job:d.job,version:d.version,result:calc(d.record||{})});else if(d.type==='validate'){

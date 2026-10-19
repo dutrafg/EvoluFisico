@@ -3,6 +3,7 @@
 (function(){'use strict';
 var $=function(s){return document.querySelector(s)};
 var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+var jsEsc=function(s){return esc(String(s==null?'':s).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\r/g,'\\r').replace(/\n/g,'\\n'))};
 var norm=function(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim()};
 var num=function(v){var n=parseFloat(String(v==null?'':v).replace(',','.'));return isFinite(n)?n:null};
 var val=function(id){var e=document.getElementById(id);return e?e.value:''};
@@ -121,7 +122,7 @@ function painel(){var cols=$('.ef55-cols');if(!cols)return;var old=$('#ef6-pn');
 lista().forEach(function(a){var k=EFIdentity.key(a);if(k&&(!m[k]||String(a.data_avaliacao||'')>=String(m[k].data_avaliacao||'')))m[k]=a});
 var ar=Object.keys(m).map(function(k){return{a:m[k],s:scoreAval(m[k])}}).filter(function(x){return x.s<70}).sort(function(x,y){return x.s-y.s}).slice(0,6);
 var card=document.createElement('div');card.className='ef55-card';card.id='ef6-pn';
-card.innerHTML='<h3>Atenção à aderência<em>'+ar.length+'</em></h3>'+(ar.length?ar.map(function(x){var cl=x.s<50?'bad':'warn';return'<div class="ef55-row" onclick="ef55Abrir(\''+esc(x.a.id)+'\')"><div class="ef55-av">'+esc((x.a.nome||'?').trim().split(/\s+/).map(function(w,i,arr){return(i===0||i===arr.length-1)?w[0]:''}).join('').toUpperCase())+'</div><div class="t"><b>'+esc(x.a.nome)+'</b><span>'+fdata(x.a.data_avaliacao)+'</span></div><span class="ef55-pill '+cl+'">Score '+x.s+'</span></div>'}).join(''):'<div class="ef55-empty">Todos os alunos com boa aderência 🎉</div>');
+card.innerHTML='<h3>Atenção à aderência<em>'+ar.length+'</em></h3>'+(ar.length?ar.map(function(x){var cl=x.s<50?'bad':'warn';return'<div class="ef55-row" onclick="ef55Abrir(\''+jsEsc(x.a.id)+'\')"><div class="ef55-av">'+esc((x.a.nome||'?').trim().split(/\s+/).map(function(w,i,arr){return(i===0||i===arr.length-1)?w[0]:''}).join('').toUpperCase())+'</div><div class="t"><b>'+esc(x.a.nome)+'</b><span>'+fdata(x.a.data_avaliacao)+'</span></div><span class="ef55-pill '+cl+'">Score '+x.s+'</span></div>'}).join(''):'<div class="ef55-empty">Todos os alunos com boa aderência 🎉</div>');
 cols.appendChild(card)}
 
 window.EF6={html:html,coletar:coletar,carregar:carregar,limpar:limpar,sincronizar:sincronizar,scoreDe:scoreDe,scoreAval:scoreAval,rotulo:rotulo,rascunho:rascunho,gerarRascunho:gerarRascunho,resumoTexto:resumoTexto,renderResumo:renderResumo,copiarResumo:copiarResumo,conquistas:conquistas};

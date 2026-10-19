@@ -11,7 +11,7 @@ await p.evaluate(async()=>{await salvarAvaliacaoNoDB({id:'qa-theme',nome:'Teste 
 for(const dark of [false,true]){
 await p.evaluate(d=>{document.documentElement.classList.toggle('ef-dark-mode',d);document.body.classList.toggle('dark-mode',d)},dark);await p.waitForTimeout(400);
 const colors=await p.evaluate(()=>{const style=s=>getComputedStyle(document.querySelector(s));return {surface:style('.patient-view-container').backgroundColor,card:style('#patient-view-content .stat-card').backgroundColor,title:style('#pv-aluno-nome').color,chart:style('#patient-view-content svg text').fill}});
-assert.equal(colors.surface,dark?'rgb(23, 33, 46)':'rgb(255, 255, 255)');assert.notEqual(colors.surface,colors.title);assert.notEqual(colors.card,colors.chart);
+assert.equal(colors.surface,dark?'rgb(21, 37, 31)':'rgb(249, 250, 247)');assert.notEqual(colors.surface,colors.title);assert.notEqual(colors.card,colors.chart);
 if(dark)await p.screenshot({path:'/tmp/ef-details-dark.png',fullPage:false});results.push(file+': '+(dark?'escuro':'claro'));
 }
 await p.emulateMedia({media:'print'});assert.equal(await p.locator('.patient-view-container').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(255, 255, 255)');results.push(file+': fundo de impressão preservado');await p.emulateMedia({media:'screen'});

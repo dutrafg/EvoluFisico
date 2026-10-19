@@ -1,4 +1,4 @@
-# Verificação — EvoluFísico 8.9.2
+# Verificação — EvoluFísico 9.0-beta
 
 Data: 16/10/2026. Base: commit c99668a8ac9849a383fef151a58924c105af4bb6.
 
@@ -6,9 +6,9 @@ Data: 16/10/2026. Base: commit c99668a8ac9849a383fef151a58924c105af4bb6.
 
 41 verificações automatizadas aprovadas:
 
-- 19 de integração em Node + JSDOM + fake-indexeddb.
-- 8 do Service Worker em VM com CacheStorage simulado.
-- 1 da SPA modular, carregando os 26 JavaScripts e 23 folhas de estilo e executando gravação e leitura pelo motor de evolução.
+- 19 de integração em Node + JSDOM + fake-indexeddb (resultado da versão-base; reexecutar após estas alterações).
+- 8 do Service Worker em VM com CacheStorage simulado (resultado da versão-base; reexecutar após o build).
+- 1 da SPA modular, carregando os 26 JavaScripts e 25 folhas de estilo e executando gravação e leitura pelo motor de evolução (script atualizado; resultado anterior não substitui nova execução).
 
 Também foi verificada a sintaxe dos 26 scripts e do Service Worker e a validade dos arquivos JSON de configuração.
 
@@ -67,3 +67,25 @@ Corrigido CSS base do módulo: modalidade empilhada no celular, botões com queb
 - Limpeza limitada às classes de impressão; preserva layout e tema.
 - Teste de regressão executa o handler real, repete 3 ciclos nos temas claro/escuro e verifica preservação de classes e remoção do estado de impressão.
 - Build e 8 testes offline aprovados. Teste de navegador ampliado; execução visual pendente neste ambiente.
+
+### Identidade visual "ficha viva"
+- Chromium: telas Início, Avaliações, Evolução, Cobranças, Calculadora e Nova avaliação em 360, 390, 768, 1024, 1199, 1200 e 1920 px, claro e escuro: sem estouro horizontal e sem erros de JavaScript.
+- Varredura de cores: sem azuis remanescentes do CSS antigo nas seis telas (claro e escuro).
+- `service-worker.cjs` (8), `print-cleanup.cjs` e `details-theme.cjs` aprovados. `modular.cjs` atualizado para 26 scripts e 25 estilos; verificado em Chromium (jsdom indisponível neste ambiente).
+- `integration.cjs` não executado aqui (depende de jsdom e fake-indexeddb); rode `npm install && npm test` antes de publicar.
+
+
+## Revisão visual 9.0 — itens do checklist
+
+- [x] Rótulos da navegação: “Avaliação e suporte” → “Diagnóstico”; ação interna “Diagnóstico” → “Teste e Correção”; “Dados e preferências” → “Configurações”.
+- [x] Aviso flutuante afastado da barra inferior no celular, respeitando a safe-area.
+- [x] Linhas de alunos adaptadas para duas colunas no celular e chips em linha própria, com quebra segura.
+- [x] Removido halo decorativo antigo do passo ativo; foco de teclado mantém contorno verde da paleta atual.
+- [x] Histórico usa painel externo transparente para evitar cartão dentro de cartão.
+- [x] Ícones de resumo usam tokens do tema, sem cores azuis fixas.
+- [x] Ajustes CSS abrangem Comparar, Cobranças, Calculadora, formulário móvel e modo escuro via tokens da identidade “ficha viva”.
+- [x] Teste modular espera 25 folhas de estilo; o teste de tema usa as cores verdes atuais em vez da paleta escura antiga.
+- [ ] Executar `npm install && npm test` no ambiente de entrega e revisar todos os resultados.
+- [ ] Homologar manualmente em Android físico, especialmente aviso inferior, formulário, Comparar, Cobranças, Calculadora e modo escuro.
+
+Nota: os itens marcados como concluídos acima foram confirmados por inspeção e edição dos arquivos-fonte. Isso não equivale a teste visual automatizado nem a homologação em aparelho físico.

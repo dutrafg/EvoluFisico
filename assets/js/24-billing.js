@@ -12,7 +12,11 @@
         const raw=localStorage.getItem(DB_KEY);
         if (billingCache && raw===billingRaw) return structuredClone(billingCache);
         if (!raw) { billingCache=[]; billingRaw=raw; return []; }
-        const data=JSON.parse(raw);
+        let data;
+        try { data=JSON.parse(raw); } catch(e) {
+            console.warn('[EvoluFísico] Histórico financeiro corrompido:', e);
+            billingCache=[]; billingRaw=raw; return [];
+        }
         const list=data&&data.__efEncrypted?await EF_Security.decryptObject(data.payload):data;
         if (!Array.isArray(list)) throw new Error('Histórico financeiro inválido. Restaure um backup.');
         billingCache=list;billingRaw=raw;
@@ -90,6 +94,13 @@
         return true;
     }
     async function salvarCobrancasDb(lista) {
+        if (window.EF_Security && EF_Security.isConfigured() && !EF_Security.key) {
+            const pass = prompt('🔐 O cofre está protegido. Digite a chave mestra para salvar a cobrança de forma criptografada:');
+            if (!pass || !(await EF_Security.unlock(pass))) {
+                notificar('Operação cancelada: a cobrança não pôde ser salva com o cofre bloqueado.', 'warning');
+                return false;
+            }
+        }
         try { return await writeBilling(lista); }
         catch(e) { notificar('Não foi possível salvar a cobrança: '+e.message,'error'); return false; }
     }

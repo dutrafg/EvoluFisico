@@ -32,6 +32,7 @@ function data(){return S.getAvaliacoes?S.getAvaliacoes():[]}
 function norm(v){return EFU.norm(v)}
 function n(v){return EFU.num(v)}
 function esc(v){return EFU.esc(v)}
+var jsEsc=function(s){return esc(String(s==null?'':s).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\r/g,'\\r').replace(/\n/g,'\\n'))};
 function pg(a){var x=a&&a.dobras_resultado&&n(a.dobras_resultado.percGordura);return x!=null?x:n(a&&a.bioimpedancia&&a.bioimpedancia.pgordura)}
 function mm(a){return EFMeasures.lean(a)}
 function hasFotos(a){var f=a&&a.fotos;return !!(f&&(f.frente||f.perfil_direito||f.perfil_esquerdo||f.costas||f.extra||f.lado))}
@@ -100,12 +101,12 @@ function card(a){
     '</div></div>'+
     ''+
     '<div class="history-actions" style="display:flex;flex-wrap:wrap;gap:6px;">'+
-    '<button class="btn btn-primary btn-sm" onclick="abrirVisualizacaoPacienteWeb(\''+esc(a.id)+'\')">👁️ Visão do Aluno</button>'+
+    '<button class="btn btn-primary btn-sm" onclick="abrirVisualizacaoPacienteWeb(\''+jsEsc(a.id)+'\')">👁️ Visão do Aluno</button>'+
     ''+
-    '<button class="btn btn-success btn-sm" onclick="imprimirAvaliacaoIndividualPDF(\''+esc(a.id)+'\')">🖨️ PDF</button>'+
-    '<button class="btn btn-secondary btn-sm" onclick="abrirModalDetalhes(\''+esc(a.id)+'\')">🔍 Detalhes</button>'+
-    '<button class="btn btn-warning btn-sm" onclick="editarAvaliacao(\''+esc(a.id)+'\')">✏️</button>'+
-    '<button class="btn btn-danger btn-sm" onclick="excluirAvaliacao(\''+esc(a.id)+'\')">🗑️</button></div>';
+    '<button class="btn btn-success btn-sm" onclick="imprimirAvaliacaoIndividualPDF(\''+jsEsc(a.id)+'\')">🖨️ PDF</button>'+
+    '<button class="btn btn-secondary btn-sm" onclick="abrirModalDetalhes(\''+jsEsc(a.id)+'\')">🔍 Detalhes</button>'+
+    '<button class="btn btn-warning btn-sm" onclick="editarAvaliacao(\''+jsEsc(a.id)+'\')">✏️</button>'+
+    '<button class="btn btn-danger btn-sm" onclick="excluirAvaliacao(\''+jsEsc(a.id)+'\')">🗑️</button></div>';
   return el;
 }
 function updateHistory(filtro){

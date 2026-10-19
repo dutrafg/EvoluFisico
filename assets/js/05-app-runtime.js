@@ -1180,7 +1180,7 @@
             }
             const clientChoice = document.getElementById('ef-client-identity');
             if (registro.__fromForm && clientChoice && clientChoice.dataset.changed === '1') {
-                if (clientChoice.value === 'new') registro.cliente_id = 'client_' + crypto.randomUUID();
+                if (clientChoice.value === 'new') registro.cliente_id = 'client_' + (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function' ? crypto.randomUUID() : Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 8));
                 else if (clientChoice.value !== 'auto') registro.cliente_id = clientChoice.value;
             }
             delete registro.__fromForm;
@@ -2347,7 +2347,8 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
                 document.getElementById('avaliacao_id').value = aval.id;
                 document.getElementById('edit-mode-alert').classList.remove('hidden');
                 document.getElementById('tab-form-icon').textContent = '✏️';
-                document.getElementById('tab-form-label').textContent = `Editar: ${aval.nome.split(' ')[0]}`;
+                const primeiroNome = (aval.nome ? String(aval.nome).trim().split(/\s+/)[0] : 'Aluno');
+                document.getElementById('tab-form-label').textContent = `Editar: ${primeiroNome}`;
                 document.getElementById('form-title-text').textContent = `Editar Avaliação - ${aval.nome}`;
                 document.getElementById('form-subtitle-text').textContent = `Modificando dados do check-in: ${aval.checkin_semana || 'Avaliação'} (${formatarData(aval.data_avaliacao)})`;
                 document.getElementById('btn-submit').textContent = 'Salvar Alterações';
@@ -4266,10 +4267,24 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
                         avaliacoes: JSON.parse(JSON.stringify(listaAvaliacoes))
                     };
                     if (EF_Security.enabled && EF_Security.key) {
-                        localStorage.setItem(EF_SECURITY_SNAPSHOT_KEY, JSON.stringify(await EF_Security.encryptObject(snapshot)));
-                        localStorage.removeItem('evolufisico_backup_safety_snapshot');
+                        try {
+                            localStorage.setItem(EF_SECURITY_SNAPSHOT_KEY, JSON.stringify(await EF_Security.encryptObject(snapshot)));
+                            localStorage.removeItem('evolufisico_backup_safety_snapshot');
+                        } catch (quotaErr) {
+                            // Fallback se estourar a cota por fotos pesadas: grava snapshot leve sem fotos
+                            const snapLeve = structuredClone(snapshot);
+                            snapLeve.avaliacoes.forEach(a => { if (a.fotos) a.fotos = { frente: '', perfil_direito: '', perfil_esquerdo: '', costas: '', extra: '', lado: '' }; });
+                            localStorage.setItem(EF_SECURITY_SNAPSHOT_KEY, JSON.stringify(await EF_Security.encryptObject(snapLeve)));
+                            localStorage.removeItem('evolufisico_backup_safety_snapshot');
+                        }
                     } else {
-                        localStorage.setItem('evolufisico_backup_safety_snapshot', JSON.stringify(snapshot));
+                        try {
+                            localStorage.setItem('evolufisico_backup_safety_snapshot', JSON.stringify(snapshot));
+                        } catch (quotaErr) {
+                            const snapLeve = structuredClone(snapshot);
+                            snapLeve.avaliacoes.forEach(a => { if (a.fotos) a.fotos = { frente: '', perfil_direito: '', perfil_esquerdo: '', costas: '', extra: '', lado: '' }; });
+                            localStorage.setItem('evolufisico_backup_safety_snapshot', JSON.stringify(snapLeve));
+                        }
                     }
                     return true;
                 } catch (e) {

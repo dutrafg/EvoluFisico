@@ -3,7 +3,7 @@
 const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toLowerCase();
 const records=()=>window.avaliacoes||[];
 const contact=a=>a.email?'email:'+String(a.email).trim().toLowerCase():String(a.whatsapp||'').replace(/\D/g,'').length>=10?'phone:'+String(a.whatsapp).replace(/\D/g,''):null;
-const fresh=()=> 'client_'+crypto.randomUUID();
+const fresh=()=> (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') ? 'client_' + crypto.randomUUID() : 'client_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 8);
 function ensure(a,list=records()){
  if(a.cliente_id)return a.cliente_id;
  const existing=list.find(x=>x!==a&&String(x.id)===String(a.id));

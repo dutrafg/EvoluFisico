@@ -49,3 +49,13 @@ Consulte `QA.md` para resultados e limites da verificação.
 Teste opcional em navegador real: instale Playwright separadamente e execute `node tests/browser-ui.cjs`. Se necessário, defina `EF_CHROMIUM_PATH` com o caminho do Chromium.
 
 Abra `evolufisico.html` para testar o arquivo único. A correção de Cobranças agora pertence ao CSS base e funciona independentemente da interface simplificada.
+
+### Identidade visual "ficha viva" (9.0-beta)
+
+A navegação foi renomeada para **Diagnóstico** (com **Teste e Correção** dentro) e **Configurações**. O acabamento responsivo inclui aviso flutuante acima da barra inferior, linhas de alunos adaptadas a telas estreitas, foco sem halo azul legado, histórico sem cartão aninhado e ícones que seguem os tokens de tema. Ver `QA.md` para o estado dos testes e itens de homologação pendentes.
+- Camada somente de CSS (`assets/css/24-fonts.css` e `25-ficha-viva.css`); marcação, IDs e lógica não mudaram.
+- Papel giz, verde-abeto e verde-lima no claro; verde-escuro com menta no escuro. Fontes Inter e Inter Display embutidas (63 KB) para funcionar offline.
+- Computador: barra lateral sobre o papel, sem caixa, com ícones e item ativo em pílula escura.
+- Celular/tablet: barra inferior flutuante com ícone e rótulo; o aviso flutuante fica acima dela.
+- Início: indicadores numa faixa única. Formulário: etapas em régua de medição. Botões em pílula; ações do histórico em tons suaves.
+- Histórico sem painel dentro de painel; ícones do resumo e demais azuis antigos migrados para a paleta; linhas de alunos com variações alinhadas ao nome.
