@@ -16040,9 +16040,6 @@ body.ef-simple-ui #ef-history-export>summary{padding:10px 14px;}
 body.ef-simple-ui #ef-history-export>summary small{display:none;}
 body.ef-simple-ui #ef-history-export .ef-simple-fold-content{display:flex;flex-wrap:wrap;gap:8px;}
 body.ef-simple-ui .search-bar-container{background:transparent!important;padding:0!important;box-shadow:none!important;border:0!important;gap:12px!important;margin-bottom:24px!important;}
-/* A abertura do painel de exportação aumenta a linha; não deixe o botão ao lado esticar. */
-body.ef-simple-ui .search-bar-container>div:last-child{align-items:flex-start!important;}
-body.ef-simple-ui .search-bar-container>div:last-child>button[onclick="resetFormulario()"]{align-self:flex-start!important;height:auto!important;min-height:40px!important;flex:0 0 auto!important;}
 body.ef-simple-ui .search-input-box input{min-height:44px!important;border:1px solid var(--ef-line)!important;background:var(--ef-surface)!important;border-radius:8px!important;font-size:15px!important;}
 body.ef-simple-ui .history-list{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px!important;}
 body.ef-simple-ui .history-client-name{font-size:17px!important;color:var(--ef-ink)!important;}
@@ -16058,7 +16055,7 @@ body.ef-simple-ui .cob-card-title{font-size:15px!important;}
 body.ef-simple-ui .cob-card{padding:22px!important;}
 
 @media(max-width:1100px){body.ef-simple-ui .top-navbar{grid-template-columns:1fr auto!important;gap:10px!important;padding:12px 24px 0!important;}body.ef-simple-ui .top-navbar>.nav-tabs{grid-row:2;grid-column:1/-1;width:100%!important;justify-content:flex-start!important;padding:0 0 10px!important;}body.ef-simple-ui #ef-primary-actions{grid-column:2;grid-row:1;}}
-@media(max-width:600px){body.ef-simple-ui .top-navbar{padding:10px 12px 0!important;gap:10px!important;position:sticky!important;}body.ef-simple-ui .brand-title{font-size:15px!important;}body.ef-simple-ui .brand-icon-box{display:none!important;}body.ef-simple-ui #tab-btn-form{font-size:11px!important;padding:9px 8px!important;min-height:40px!important;}#ef-tools>summary{font-size:0;padding:9px;min-height:40px;gap:4px;}#ef-tools>summary:before{content:"Mais";font-size:12px;}body.ef-simple-ui .top-navbar>.nav-tabs{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:2px!important;}body.ef-simple-ui .top-navbar>.nav-tabs>.nav-tab-btn{font-size:11px!important;padding:0 2px!important;justify-content:center!important;min-width:0!important;}body.ef-simple-ui .ef-nav-count{display:none!important;}body.ef-simple-ui .app-container{padding:22px 12px 40px!important;}body.ef-simple-ui .ef55-head h1,body.ef-simple-ui .form-header h1{font-size:24px!important;}body.ef-simple-ui .ef55-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;}body.ef-simple-ui .ef55-cols,body.ef-simple-ui .history-list{grid-template-columns:1fr!important;}body.ef-simple-ui .form-container{padding:20px 14px!important;}body.ef-simple-ui .input-row{grid-template-columns:1fr!important;gap:0!important;}body.ef-simple-ui .step-label{font-size:10px!important;}body.ef-simple-ui .ef-simple-fold>summary{padding:14px!important;}body.ef-simple-ui .ef-simple-fold-content{padding:0 14px 14px!important;}body.ef-simple-ui .history-card{padding:16px!important;}body.ef-simple-ui .cob-card{padding:16px!important;}body.ef-simple-ui .search-bar-container{flex-direction:column!important;align-items:stretch!important;}body.ef-simple-ui .search-input-box{width:100%!important;}body.ef-simple-ui .comparison-selector-grid{grid-template-columns:1fr!important;}body.ef-simple-ui .ef55-head .btn{font-size:12px!important;}}
+@media(max-width:600px){body.ef-simple-ui .top-navbar{padding:10px 12px 0!important;gap:10px!important;position:sticky!important;}body.ef-simple-ui .brand-title{font-size:15px!important;}body.ef-simple-ui .brand-icon-box{display:none!important;}body.ef-simple-ui #tab-btn-form{font-size:11px!important;padding:9px 8px!important;min-height:40px!important;}#ef-tools>summary{font-size:0;padding:9px;min-height:40px;gap:4px;}#ef-tools>summary:before{content:"Mais";font-size:12px;}body.ef-simple-ui .top-navbar>.nav-tabs{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:2px!important;}body.ef-simple-ui .top-navbar>.nav-tabs>.nav-tab-btn{font-size:12px!important;padding:0 6px!important;justify-content:center!important;min-width:0!important;}body.ef-simple-ui .ef-nav-count{display:none!important;}body.ef-simple-ui .app-container{padding:22px 12px 40px!important;}body.ef-simple-ui .ef55-head h1,body.ef-simple-ui .form-header h1{font-size:24px!important;}body.ef-simple-ui .ef55-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;}body.ef-simple-ui .ef55-cols,body.ef-simple-ui .history-list{grid-template-columns:1fr!important;}body.ef-simple-ui .form-container{padding:20px 14px!important;}body.ef-simple-ui .input-row{grid-template-columns:1fr!important;gap:0!important;}body.ef-simple-ui .step-label{font-size:10px!important;}body.ef-simple-ui .ef-simple-fold>summary{padding:14px!important;}body.ef-simple-ui .ef-simple-fold-content{padding:0 14px 14px!important;}body.ef-simple-ui .history-card{padding:16px!important;}body.ef-simple-ui .cob-card{padding:16px!important;}body.ef-simple-ui .search-bar-container{flex-direction:column!important;align-items:stretch!important;}body.ef-simple-ui .search-input-box{width:100%!important;}body.ef-simple-ui .comparison-selector-grid{grid-template-columns:1fr!important;}body.ef-simple-ui .ef55-head .btn{font-size:12px!important;}}
 @media(prefers-reduced-motion:reduce){body.ef-simple-ui *,body.ef-simple-ui *::before,body.ef-simple-ui *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
 }
 @media print{#ef-tools,#ef-primary-actions{display:none!important;}details.ef-simple-fold{border:0!important;}details.ef-simple-fold>summary{display:none!important;}details.ef-simple-fold>.ef-simple-fold-content{display:block!important;padding:0!important;}}
@@ -16133,7 +16130,7 @@ const routes={
  'tab-comparison':['tab-btn-compare','Evolução'],
  'tab-cobranca':['tab-btn-cobranca','Cobranças'],
  'tab-novo-checkin':['tab-btn-form','Nova avaliação'],
- 'tab-lab77':['tab-btn-lab77','Calculadora'],
+ 'tab-lab77':['tab-btn-lab77','Calculadoras'],
  'tab-diagnostics':['tab-btn-diagnostics','Diagnóstico']
 };
 function fold(id,title,hint,nodes,parent,before=null){
@@ -16146,8 +16143,8 @@ function fold(id,title,hint,nodes,parent,before=null){
 }
 function arrangeNavigation(){
  const nav=document.querySelector('.top-navbar > .nav-tabs'),menu=$('ef-tools-content'),actions=$('ef-primary-actions');if(!nav||!menu||!actions)return;
- ['tab-painel','tab-historico','tab-comparison','tab-lab77','tab-cobranca'].forEach(route=>{const b=$(routes[route][0]);if(b&&b.parentNode!==nav)nav.append(b)});
- ['tab-diagnostics'].forEach(route=>{const b=$(routes[route][0]);if(b&&b.parentNode!==$('ef-tools-advanced'))$('ef-tools-advanced').append(b)});
+ ['tab-painel','tab-historico','tab-comparison','tab-cobranca'].forEach(route=>{const b=$(routes[route][0]);if(b&&b.parentNode!==nav)nav.append(b)});
+ ['tab-lab77','tab-diagnostics'].forEach(route=>{const b=$(routes[route][0]);if(b&&b.parentNode!==$('ef-tools-advanced'))$('ef-tools-advanced').append(b)});
  const form=$('tab-btn-form');if(form&&form.parentNode!==actions)actions.prepend(form);
  for(const [route,[id,label]] of Object.entries(routes)){
   const b=$(id);if(!b)continue;b.type='button';b.setAttribute('aria-controls',route);
@@ -16161,7 +16158,7 @@ function arrangeNavigation(){
   const active=$(route)?.classList.contains('active');b.classList.toggle('active',!!active);if(active)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
  }
  const active=document.querySelector('.tab-panel.active');
- $('ef-tools').classList.toggle('ef-tools-active',active?.id==='tab-diagnostics');
+ $('ef-tools').classList.toggle('ef-tools-active',['tab-lab77','tab-diagnostics'].includes(active?.id));
 }
 function arrangeDetails(){
  const panel=$('ef55-painel');if(panel){

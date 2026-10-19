@@ -1,6 +1,6 @@
 /* 22-runtime.js */
 /* ==========================================================================
-   EVOLUFÍSICO v9.0-beta — MÓDULO DE COBRANÇA, PRECIFICAÇÃO E HISTÓRICO
+   EVOLUFÍSICO v8.9.3 Teste — MÓDULO DE COBRANÇA, PRECIFICAÇÃO E HISTÓRICO
    Foco exclusivo na precificação e histórico com Totais e Por Aluno
    ========================================================================== */
 (function() {
@@ -12,11 +12,7 @@
         const raw=localStorage.getItem(DB_KEY);
         if (billingCache && raw===billingRaw) return structuredClone(billingCache);
         if (!raw) { billingCache=[]; billingRaw=raw; return []; }
-        let data;
-        try { data=JSON.parse(raw); } catch(e) {
-            console.warn('[EvoluFísico] Histórico financeiro corrompido:', e);
-            billingCache=[]; billingRaw=raw; return [];
-        }
+        const data=JSON.parse(raw);
         const list=data&&data.__efEncrypted?await EF_Security.decryptObject(data.payload):data;
         if (!Array.isArray(list)) throw new Error('Histórico financeiro inválido. Restaure um backup.');
         billingCache=list;billingRaw=raw;
@@ -94,13 +90,6 @@
         return true;
     }
     async function salvarCobrancasDb(lista) {
-        if (window.EF_Security && EF_Security.isConfigured() && !EF_Security.key) {
-            const pass = prompt('🔐 O cofre está protegido. Digite a chave mestra para salvar a cobrança de forma criptografada:');
-            if (!pass || !(await EF_Security.unlock(pass))) {
-                notificar('Operação cancelada: a cobrança não pôde ser salva com o cofre bloqueado.', 'warning');
-                return false;
-            }
-        }
         try { return await writeBilling(lista); }
         catch(e) { notificar('Não foi possível salvar a cobrança: '+e.message,'error'); return false; }
     }
@@ -1177,7 +1166,7 @@
         protect: async function(key=EF_Security.key) { const list=await loadBilling(); await writeBilling(list,key,true); },
         unprotect: async function() {const list=await loadBilling();await writeBilling(list,null,false);},
         clearMemory: function(){billingCache=null;billingRaw=null;},
-        version: '9.0-beta',
+        version: '8.9.3',
         mounted: true,
         state: state,
         mount: mount,

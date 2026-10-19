@@ -1180,7 +1180,7 @@
             }
             const clientChoice = document.getElementById('ef-client-identity');
             if (registro.__fromForm && clientChoice && clientChoice.dataset.changed === '1') {
-                if (clientChoice.value === 'new') registro.cliente_id = 'client_' + (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function' ? crypto.randomUUID() : Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 8));
+                if (clientChoice.value === 'new') registro.cliente_id = 'client_' + crypto.randomUUID();
                 else if (clientChoice.value !== 'auto') registro.cliente_id = clientChoice.value;
             }
             delete registro.__fromForm;
@@ -2347,8 +2347,7 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
                 document.getElementById('avaliacao_id').value = aval.id;
                 document.getElementById('edit-mode-alert').classList.remove('hidden');
                 document.getElementById('tab-form-icon').textContent = '✏️';
-                const primeiroNome = (aval.nome ? String(aval.nome).trim().split(/\s+/)[0] : 'Aluno');
-                document.getElementById('tab-form-label').textContent = `Editar: ${primeiroNome}`;
+                document.getElementById('tab-form-label').textContent = `Editar: ${aval.nome.split(' ')[0]}`;
                 document.getElementById('form-title-text').textContent = `Editar Avaliação - ${aval.nome}`;
                 document.getElementById('form-subtitle-text').textContent = `Modificando dados do check-in: ${aval.checkin_semana || 'Avaliação'} (${formatarData(aval.data_avaliacao)})`;
                 document.getElementById('btn-submit').textContent = 'Salvar Alterações';
@@ -2750,7 +2749,7 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
                     </div>
 
                     <div style="margin-top:10px; font-size:0.72rem; color:#64748b; text-align:right;">
-                        Página 1 de 2 &bull; Emitido em ${new Date().toLocaleDateString('pt-BR')} &bull; EvoluFísico v9.0-beta
+                        Página 1 de 2 &bull; Emitido em ${new Date().toLocaleDateString('pt-BR')} &bull; EvoluFísico v8.9.3 Teste
                     </div>
                 </div>
 
@@ -2834,7 +2833,7 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
                     </div>
 
                     <div style="margin-top:12px; font-size:0.72rem; color:#64748b; text-align:right;">
-                        Página 2 de 2 &bull; EvoluFísico v9.0-beta &bull; Documento Oficial
+                        Página 2 de 2 &bull; EvoluFísico v8.9.3 Teste &bull; Documento Oficial
                     </div>
                 </div>
             `;
@@ -2848,11 +2847,6 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
             };
             window.addEventListener('afterprint', cleanupIndPrint, { once: true });
             document.body.classList.add('print-mode-single');
-            // Mantém a abertura original da versão 8.9.3. O marcador serve
-            // somente ao CSS de impressão, mesmo se o Android antecipar afterprint.
-            document.body.dataset.efPrintTarget = 'report';
-            clearTimeout(window.__efPrintGuardTimer);
-            window.__efPrintGuardTimer = setTimeout(() => { delete document.body.dataset.efPrintTarget; }, 120000);
             window.print();
             setTimeout(cleanupIndPrint, 1500);
         }
@@ -3062,7 +3056,7 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
                 <div class="cm-pro"><b>${esc(proNome)}</b><span>${esc(proCref)}</span></div></div>`;
 
             const shell = (n, inner, full) => `<section class="cm-page${n === totalPaginas ? ' cm-last' : ''}">${full ? headFull : headMini}${inner}
-                <div class="cm-foot"><span>EvoluFísico v9.0-beta · Relatório comparativo · Emitido em ${emissao}</span><span>Página ${n} de ${totalPaginas}</span></div></section>`;
+                <div class="cm-foot"><span>EvoluFísico v8.9.3 Teste · Relatório comparativo · Emitido em ${emissao}</span><span>Página ${n} de ${totalPaginas}</span></div></section>`;
 
             const kpi = (label, valor, badge, de, acc) => `<div class="cm-kpi" style="--acc:${acc}"><small>${label}</small><b>${valor}</b><div>${badge}</div><em>${de}</em></div>`;
 
@@ -3112,11 +3106,6 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
             };
             window.addEventListener('afterprint', cleanupCmpPrint, { once: true });
             document.body.classList.add('print-mode-single');
-            // Mantém a abertura original da versão 8.9.3. O marcador serve
-            // somente ao CSS de impressão, mesmo se o Android antecipar afterprint.
-            document.body.dataset.efPrintTarget = 'report';
-            clearTimeout(window.__efPrintGuardTimer);
-            window.__efPrintGuardTimer = setTimeout(() => { delete document.body.dataset.efPrintTarget; }, 120000);
             window.print();
             setTimeout(cleanupCmpPrint, 1500);
         }
@@ -4277,24 +4266,10 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
                         avaliacoes: JSON.parse(JSON.stringify(listaAvaliacoes))
                     };
                     if (EF_Security.enabled && EF_Security.key) {
-                        try {
-                            localStorage.setItem(EF_SECURITY_SNAPSHOT_KEY, JSON.stringify(await EF_Security.encryptObject(snapshot)));
-                            localStorage.removeItem('evolufisico_backup_safety_snapshot');
-                        } catch (quotaErr) {
-                            // Fallback se estourar a cota por fotos pesadas: grava snapshot leve sem fotos
-                            const snapLeve = structuredClone(snapshot);
-                            snapLeve.avaliacoes.forEach(a => { if (a.fotos) a.fotos = { frente: '', perfil_direito: '', perfil_esquerdo: '', costas: '', extra: '', lado: '' }; });
-                            localStorage.setItem(EF_SECURITY_SNAPSHOT_KEY, JSON.stringify(await EF_Security.encryptObject(snapLeve)));
-                            localStorage.removeItem('evolufisico_backup_safety_snapshot');
-                        }
+                        localStorage.setItem(EF_SECURITY_SNAPSHOT_KEY, JSON.stringify(await EF_Security.encryptObject(snapshot)));
+                        localStorage.removeItem('evolufisico_backup_safety_snapshot');
                     } else {
-                        try {
-                            localStorage.setItem('evolufisico_backup_safety_snapshot', JSON.stringify(snapshot));
-                        } catch (quotaErr) {
-                            const snapLeve = structuredClone(snapshot);
-                            snapLeve.avaliacoes.forEach(a => { if (a.fotos) a.fotos = { frente: '', perfil_direito: '', perfil_esquerdo: '', costas: '', extra: '', lado: '' }; });
-                            localStorage.setItem('evolufisico_backup_safety_snapshot', JSON.stringify(snapLeve));
-                        }
+                        localStorage.setItem('evolufisico_backup_safety_snapshot', JSON.stringify(snapshot));
                     }
                     return true;
                 } catch (e) {
@@ -4361,7 +4336,7 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
                     financeiro,
                     checksumFinanceiro: financeiro ? await this.calcularChecksum(JSON.stringify(financeiro)) : null,
                     app: "EvoluFisico",
-                    versaoApp: "9.0-beta",
+                    versaoApp: "8.9.3",
                     schemaVersion: 2,
                     tipoBackup: tipo,
                     dataExportacao: new Date().toISOString(),
@@ -5339,6 +5314,7 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
         window.descartarRascunho = descartarRascunho;
         window.addEventListener('afterprint', () => {
             document.body.classList.remove('print-mode-single', 'print-mode-comparison');
+            document.body.className = '';
         });
 
         window.abrirModalDetalhes = abrirModalDetalhes;
