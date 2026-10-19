@@ -94,18 +94,14 @@
   }
 }
 
-/* Isolamento explícito do laudo durante a impressão, sem regras :has globais. */
+/* Correção de impressão Android e desktop: apenas o relatório, sem navegação.
+   A classe auxiliar permanece após um afterprint antecipado no smartphone.
+   Não afeta o aplicativo fora do modo de impressão. */
 @media print {
-  body.ef-relatorio-impressao:not(.ef77-printing) > :not(#single-print-wrapper) {
-    display: none !important;
-  }
-  body.ef-relatorio-impressao:not(.ef77-printing) #single-print-wrapper {
-    display: block !important;
-    position: static !important;
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    background: #fff !important;
-    color: #0f172a !important;
-  }
+ body.ef-print-report-only > :not(#single-print-wrapper) {display:none !important;}
+ body.ef-print-report-only > #single-print-wrapper {
+  display:block !important; position:static !important;
+  width:100% !important; margin:0 !important; padding:0 !important;
+  background:#fff !important; visibility:visible !important;
+ }
 }
