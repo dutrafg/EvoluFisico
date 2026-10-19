@@ -2595,6 +2595,68 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
             renderizarHistorico(input.value);
         }
 
+        /* PDF 8.9.3: usa o relatório original, mas abre a prévia em uma janela
+           isolada. No Android o botão dentro da prévia exige um toque real;
+           assim o navegador não precisa imprimir a janela PWA principal. */
+        function efAbrirPreviaPdf893(areaRelatorio) {
+            if (!areaRelatorio || !areaRelatorio.querySelector('.print-page, .cm-page')) return false;
+            let preview;
+            try { preview = window.open('', '_blank'); } catch (err) { preview = null; }
+            if (!preview || preview.closed) return false;
+            try {
+                const doc = preview.document;
+                doc.title = 'EvoluFísico 8.9.3 - Relatório PDF';
+                doc.documentElement.lang = 'pt-BR';
+                const viewport = doc.createElement('meta');
+                viewport.name = 'viewport';
+                viewport.content = 'width=device-width, initial-scale=1';
+                doc.head.appendChild(viewport);
+                const base = doc.createElement('base');
+                base.href = document.baseURI;
+                doc.head.appendChild(base);
+                document.querySelectorAll('head style, head link[rel="stylesheet"]').forEach(function(el) {
+                    const node = doc.importNode(el, true);
+                    if (node.tagName === 'LINK') node.href = el.href;
+                    doc.head.appendChild(node);
+                });
+                const extra = doc.createElement('style');
+                extra.textContent = '\n' +
+                  '@media screen {html,body{background:#eef2f6!important;margin:0!important;padding:0!important;}' +
+                  'body > #single-print-wrapper{display:block!important;max-width:210mm;margin:16px auto!important;' +
+                  'padding:12px!important;background:white!important;box-shadow:0 3px 16px #0002;}' +
+                  '.ef893-pdf-bar{position:sticky;top:0;z-index:20000;display:flex;flex-wrap:wrap;' +
+                  'align-items:center;justify-content:space-between;gap:10px;padding:12px;' +
+                  'background:#173e36;color:white;font:500 14px/1.4 Arial,sans-serif;}' +
+                  '.ef893-pdf-bar button{border:0;border-radius:8px;background:#ceef77;color:#103526;' +
+                  'padding:12px 16px;font-weight:800;font-size:15px;cursor:pointer;}}' +
+                  '@media print{html,body{margin:0!important;padding:0!important;background:#fff!important;}' +
+                  'body > :not(#single-print-wrapper){display:none!important;}' +
+                  'body > #single-print-wrapper{display:block!important;position:static!important;' +
+                  'width:100%!important;max-width:none!important;margin:0!important;padding:0!important;' +
+                  'background:#fff!important;visibility:visible!important;}}';
+                doc.head.appendChild(extra);
+                doc.body.className = 'print-mode-single ef-simple-ui';
+                const bar = doc.createElement('div');
+                bar.className = 'ef893-pdf-bar no-print';
+                const desc = doc.createElement('span');
+                desc.textContent = 'Relatório pronto. Toque em Salvar como PDF / Imprimir.';
+                const button = doc.createElement('button');
+                button.type = 'button';
+                button.textContent = 'Salvar como PDF / Imprimir';
+                button.addEventListener('click', function(){preview.focus();preview.print();});
+                bar.append(desc,button);
+                doc.body.appendChild(bar);
+                const content = doc.importNode(areaRelatorio, true);
+                doc.body.appendChild(content);
+                preview.focus();
+                return true;
+            } catch (err) {
+                console.error('[EvoluFísico] Falha ao preparar a prévia PDF:', err);
+                try { preview.close(); } catch (ignored) {}
+                return false;
+            }
+        }
+
         function imprimirAvaliacaoIndividualPDF(id) {
             const aval = (typeof encontrarAvaliacaoPorId === 'function' ? encontrarAvaliacaoPorId(id) : null) || avaliacoes.find(a => a.id === id || String(a.id) === String(id));
             if (!aval) return;
@@ -2838,6 +2900,7 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
                 </div>
             `;
 
+            if (efAbrirPreviaPdf893(wrapper)) return;
             const oldDocTitle = document.title;
             document.title = ' ';
             const cleanupIndPrint = () => {
@@ -3097,6 +3160,7 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
 
             wrapper.innerHTML = paginas.join('');
 
+            if (efAbrirPreviaPdf893(wrapper)) return;
             const oldCmpTitle = document.title;
             document.title = ' ';
             const cleanupCmpPrint = () => {

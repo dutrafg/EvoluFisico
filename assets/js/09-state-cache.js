@@ -175,12 +175,9 @@ function patchCompare(){
   };
 }
 function patchPdf(){
-  // Sempre usar o gerador original, sem um atalho que remove o modo
-  // de impressão após 1 segundo e pode gerar PDF em branco no Android.
-  if(typeof originalPdf!=='function')return;
-  window.imprimirAvaliacaoIndividualPDF=function(){
-    return originalPdf.apply(this,arguments);
-  };
+  // O gerador principal cria nova prévia isolada a cada solicitação.
+  // Desativa o segundo caminho de impressão e seu cache obsoleto.
+  return;
 }
 function patchPainel(){
   var originalSwitch=window.switchTab;
