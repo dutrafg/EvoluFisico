@@ -2596,6 +2596,32 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
             renderizarHistorico(input.value);
         }
 
+        // Em celulares, o evento afterprint pode disparar ANTES da prévia "Salvar como PDF".
+        // Mantemos um marcador independente do modo temporário de tela, só para o CSS de impressão.
+        window.efImprimirRelatorioSeguro = function() {
+            const area = document.getElementById('single-print-wrapper');
+            if (!area || !area.querySelector('.print-page, .cm-page')) {
+                console.warn('[EvoluFísico] Relatório de impressão vazio');
+                if (typeof window.efToast === 'function') window.efToast('Não foi possível preparar o relatório para impressão.', 'warn');
+                return false;
+            }
+            document.body.classList.add('ef-relatorio-impressao');
+            clearTimeout(window.__efPdfPrintTimer);
+            // Fallback: liberar o marcador ao retornar da prévia; não afeta a tela normal.
+            window.__efPdfPrintTimer = setTimeout(function(){
+                document.body.classList.remove('ef-relatorio-impressao');
+                window.__efPdfPrintTimer = null;
+            }, 45000);
+            try { window.print(); }
+            catch (error) {
+                console.error('[EvoluFísico] Falha ao abrir impressão', error);
+                document.body.classList.remove('ef-relatorio-impressao');
+                if (typeof window.efToast === 'function') window.efToast('Não foi possível abrir a impressão. Tente novamente.', 'warn');
+                return false;
+            }
+            return true;
+        };
+
         function imprimirAvaliacaoIndividualPDF(id) {
             const aval = (typeof encontrarAvaliacaoPorId === 'function' ? encontrarAvaliacaoPorId(id) : null) || avaliacoes.find(a => a.id === id || String(a.id) === String(id));
             if (!aval) return;
@@ -2848,8 +2874,8 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
             };
             window.addEventListener('afterprint', cleanupIndPrint, { once: true });
             document.body.classList.add('print-mode-single');
-            window.print();
-            setTimeout(cleanupIndPrint, 120000);
+            window.efImprimirRelatorioSeguro();
+            setTimeout(cleanupIndPrint, 15000);
         }
 
         function imprimirComparativoPDF() {
@@ -3107,8 +3133,8 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
             };
             window.addEventListener('afterprint', cleanupCmpPrint, { once: true });
             document.body.classList.add('print-mode-single');
-            window.print();
-            setTimeout(cleanupCmpPrint, 120000);
+            window.efImprimirRelatorioSeguro();
+            setTimeout(cleanupCmpPrint, 15000);
         }
 
         function imprimirAvaliacaoDaModal() {

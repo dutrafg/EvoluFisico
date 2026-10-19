@@ -94,29 +94,18 @@
   }
 }
 
-
-/* QA 9.0-beta — Isolamento do PDF (Chromium desktop e Android).
- * A prévia do Android pode iniciar após a remoção antecipada da classe
- * temporária print-mode-single. Nesse caso o próprio relatório montado
- * identifica qual elemento deve ser impresso, excluindo toda a aplicação.
- */
+/* Isolamento explícito do laudo durante a impressão, sem regras :has globais. */
 @media print {
-  body:not(.ef77-printing):has(> #single-print-wrapper > :is(.print-page, .cm-page)) > :not(#single-print-wrapper) {
+  body.ef-relatorio-impressao:not(.ef77-printing) > :not(#single-print-wrapper) {
     display: none !important;
   }
-  body:not(.ef77-printing):has(> #single-print-wrapper > :is(.print-page, .cm-page)) > #single-print-wrapper {
+  body.ef-relatorio-impressao:not(.ef77-printing) #single-print-wrapper {
     display: block !important;
     position: static !important;
-    visibility: visible !important;
+    width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
-    width: 100% !important;
-    background: white !important;
-  }
-  body:not(.ef77-printing):has(> #single-print-wrapper > :is(.print-page, .cm-page)) :is(.top-navbar, .nav-tabs, .sidebar, .ef90-home, .nav-actions, .no-print) {
-    display: none !important;
-  }
-  body.ef77-printing > :not(#ef77-print) {
-    display: none !important;
+    background: #fff !important;
+    color: #0f172a !important;
   }
 }
