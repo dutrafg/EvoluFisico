@@ -93,15 +93,12 @@
     font-size: 6.5pt; letter-spacing: .08em; color: var(--pa-muted); text-align: center;
   }
 }
-
-/* Correção de impressão Android e desktop: apenas o relatório, sem navegação.
-   A classe auxiliar permanece após um afterprint antecipado no smartphone.
-   Não afeta o aplicativo fora do modo de impressão. */
+/* Laudo PDF: isolamento de layout sem alterar o fluxo nativo da versão 8.9.3. */
 @media print {
- body.ef-print-report-only > :not(#single-print-wrapper) {display:none !important;}
- body.ef-print-report-only > #single-print-wrapper {
-  display:block !important; position:static !important;
-  width:100% !important; margin:0 !important; padding:0 !important;
-  background:#fff !important; visibility:visible !important;
- }
+  body:not(.ef77-printing)[data-ef-print-target="report"] > :not(#single-print-wrapper) { display: none !important; }
+  body:not(.ef77-printing)[data-ef-print-target="report"] > #single-print-wrapper {
+    display: block !important; position: static !important; width: 100% !important;
+    margin: 0 !important; padding: 0 !important; background: #fff !important;
+    visibility: visible !important;
+  }
 }

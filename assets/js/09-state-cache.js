@@ -176,15 +176,11 @@ function patchCompare(){
   };
 }
 function patchPdf(){
+  // PDF sempre é montado de novo, preservando a chamada direta de impressão.
+  // O atalho anterior fechava print-mode-single em 1000ms e podia gerar PDF vazio.
   if(typeof originalPdf!=='function')return;
-  window.imprimirAvaliacaoIndividualPDF=function(id){
-    var key=String(id),m=cache.pdf.get(key),w=document.getElementById('single-print-wrapper');
-    if(m&&m.version===S.version&&w){
-      w.innerHTML=m.html;document.body.classList.add('print-mode-single');window.print();
-      setTimeout(function(){document.body.classList.remove('print-mode-single')},1000);return;
-    }
-    originalPdf.apply(this,arguments);
-    if(w){cache.pdf.set(key,{version:S.version,html:w.innerHTML})}
+  window.imprimirAvaliacaoIndividualPDF=function(){
+    return originalPdf.apply(this,arguments);
   };
 }
 function patchPainel(){

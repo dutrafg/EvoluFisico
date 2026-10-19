@@ -2848,11 +2848,11 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
             };
             window.addEventListener('afterprint', cleanupIndPrint, { once: true });
             document.body.classList.add('print-mode-single');
-            // Mantem o relatorio isolado na pre-visualizacao Android mesmo
-            // se o evento afterprint ocorrer antecipadamente.
-            document.body.classList.add('ef-print-report-only');
+            // Mantém a abertura original da versão 8.9.3. O marcador serve
+            // somente ao CSS de impressão, mesmo se o Android antecipar afterprint.
+            document.body.dataset.efPrintTarget = 'report';
             clearTimeout(window.__efPrintGuardTimer);
-            window.__efPrintGuardTimer = setTimeout(() => document.body.classList.remove('ef-print-report-only'), 120000);
+            window.__efPrintGuardTimer = setTimeout(() => { delete document.body.dataset.efPrintTarget; }, 120000);
             window.print();
             setTimeout(cleanupIndPrint, 1500);
         }
@@ -3112,11 +3112,11 @@ Próximos passos: ${registro.parecer_v6?.proximos_passos || '-'}`;
             };
             window.addEventListener('afterprint', cleanupCmpPrint, { once: true });
             document.body.classList.add('print-mode-single');
-            // Mantem o relatorio isolado na pre-visualizacao Android mesmo
-            // se o evento afterprint ocorrer antecipadamente.
-            document.body.classList.add('ef-print-report-only');
+            // Mantém a abertura original da versão 8.9.3. O marcador serve
+            // somente ao CSS de impressão, mesmo se o Android antecipar afterprint.
+            document.body.dataset.efPrintTarget = 'report';
             clearTimeout(window.__efPrintGuardTimer);
-            window.__efPrintGuardTimer = setTimeout(() => document.body.classList.remove('ef-print-report-only'), 120000);
+            window.__efPrintGuardTimer = setTimeout(() => { delete document.body.dataset.efPrintTarget; }, 120000);
             window.print();
             setTimeout(cleanupCmpPrint, 1500);
         }
